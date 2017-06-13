@@ -1,0 +1,223 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v1.1",
+    "signature": "703a004cc785acc172ca45517fc59d65a749e1cf"
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v1.1": {
+      "projectcore/1.0.0": {
+        "dependencies": {
+          "EPPlus.Core": "1.5.1"
+        },
+        "runtime": {
+          "ProjectCore.dll": {}
+        }
+      },
+      "corecompat.system.drawing/1.0.0-beta006": {
+        "dependencies": {
+          "System.Collections.NonGeneric": "4.3.0",
+          "System.Collections.Specialized": "4.0.1",
+          "System.ComponentModel.TypeConverter": "4.1.0",
+          "System.Drawing.Primitives": "4.0.0"
+        },
+        "runtime": {
+          "lib/netstandard1.3/CoreCompat.System.Drawing.dll": {}
+        }
+      },
+      "epplus.core/1.5.1": {
+        "dependencies": {
+          "CoreCompat.System.Drawing": "1.0.0-beta006",
+          "System.Collections.NonGeneric": "4.3.0",
+          "System.Data.Common": "4.3.0",
+          "System.Security.Cryptography.Pkcs": "4.3.0",
+          "System.Text.Encoding.CodePages": "4.3.0",
+          "System.Xml.XPath.XmlDocument": "4.3.0",
+          "System.Xml.XmlDocument": "4.3.0"
+        },
+        "runtime": {
+          "lib/netstandard1.3/EPPlus.Core.dll": {}
+        }
+      },
+      "system.collections.nongeneric/4.3.0": {
+        "runtime": {
+          "lib/netstandard1.3/System.Collections.NonGeneric.dll": {}
+        }
+      },
+      "system.collections.specialized/4.0.1": {
+        "dependencies": {
+          "System.Collections.NonGeneric": "4.3.0"
+        },
+        "runtime": {
+          "lib/netstandard1.3/System.Collections.Specialized.dll": {}
+        }
+      },
+      "system.componentmodel.primitives/4.1.0": {
+        "runtime": {
+          "lib/netstandard1.0/System.ComponentModel.Primitives.dll": {}
+        }
+      },
+      "system.componentmodel.typeconverter/4.1.0": {
+        "dependencies": {
+          "System.Collections.NonGeneric": "4.3.0",
+          "System.Collections.Specialized": "4.0.1",
+          "System.ComponentModel.Primitives": "4.1.0"
+        },
+        "runtime": {
+          "lib/netstandard1.5/System.ComponentModel.TypeConverter.dll": {}
+        }
+      },
+      "system.data.common/4.3.0": {
+        "runtime": {
+          "lib/netstandard1.2/System.Data.Common.dll": {}
+        }
+      },
+      "system.drawing.primitives/4.0.0": {
+        "runtime": {
+          "lib/netstandard1.1/System.Drawing.Primitives.dll": {}
+        }
+      },
+      "system.security.cryptography.pkcs/4.3.0": {
+        "runtimeTargets": {
+          "runtimes/unix/lib/netstandard1.3/System.Security.Cryptography.Pkcs.dll": {
+            "rid": "unix",
+            "assetType": "runtime"
+          },
+          "runtimes/win/lib/netstandard1.3/System.Security.Cryptography.Pkcs.dll": {
+            "rid": "win",
+            "assetType": "runtime"
+          }
+        }
+      },
+      "system.text.encoding.codepages/4.3.0": {
+        "runtimeTargets": {
+          "runtimes/unix/lib/netstandard1.3/System.Text.Encoding.CodePages.dll": {
+            "rid": "unix",
+            "assetType": "runtime"
+          },
+          "runtimes/win/lib/netstandard1.3/System.Text.Encoding.CodePages.dll": {
+            "rid": "win",
+            "assetType": "runtime"
+          }
+        }
+      },
+      "system.xml.xmldocument/4.3.0": {
+        "runtime": {
+          "lib/netstandard1.3/System.Xml.XmlDocument.dll": {}
+        }
+      },
+      "system.xml.xpath/4.3.0": {
+        "runtime": {
+          "lib/netstandard1.3/System.Xml.XPath.dll": {}
+        }
+      },
+      "system.xml.xpath.xmldocument/4.3.0": {
+        "dependencies": {
+          "System.Xml.XPath": "4.3.0",
+          "System.Xml.XmlDocument": "4.3.0"
+        },
+        "runtime": {
+          "lib/netstandard1.3/System.Xml.XPath.XmlDocument.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "projectcore/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "corecompat.system.drawing/1.0.0-beta006": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-KOBeVy8FHx9zkXrIZAM8OdXPrimROmvfB02fOegrYIelNN/zWhsOwzONgD7gw7wOTJgAFfdwpme5CiMraJj47Q==",
+      "path": "corecompat.system.drawing/1.0.0-beta006",
+      "hashPath": "corecompat.system.drawing.1.0.0-beta006.nupkg.sha512"
+    },
+    "epplus.core/1.5.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-e6DHqfnwSQgpgj6l4RWTv1r/8ZHlMhgjzQL3tcav2zRhw9vV36+5AN817cKFO5Y0e04eE6X7ee5n9Rfd9IS/8w==",
+      "path": "epplus.core/1.5.1",
+      "hashPath": "epplus.core.1.5.1.nupkg.sha512"
+    },
+    "system.collections.nongeneric/4.3.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-rLLQw21uVFLHKVZOP3G++SVy5jRYbn1zZRd/6ktoHC1vEcZk2kfaf+N0AhX3a1D2NSfV9/jR69qV76iL2+Gtgw==",
+      "path": "system.collections.nongeneric/4.3.0",
+      "hashPath": "system.collections.nongeneric.4.3.0.nupkg.sha512"
+    },
+    "system.collections.specialized/4.0.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-P2oUOmr/wNkhb0kqXZ7G0gzMf15XjMAc6xQmDxV7NE4wqvxvu9uhsHSQMIwKNJUnQJTqJzm0SdLQ4nBIljZLTA==",
+      "path": "system.collections.specialized/4.0.1",
+      "hashPath": "system.collections.specialized.4.0.1.nupkg.sha512"
+    },
+    "system.componentmodel.primitives/4.1.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-mXvn93fZv25WvjW6NcG2I0HdFQp+/wwaO8p2X5fxVCu8qEnL6bbORNVdLX77Z1cdYOGCm9gEtceLzbZXBIKn0g==",
+      "path": "system.componentmodel.primitives/4.1.0",
+      "hashPath": "system.componentmodel.primitives.4.1.0.nupkg.sha512"
+    },
+    "system.componentmodel.typeconverter/4.1.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-wmUk1GbrjOiANPLIJvV0Jfdu85QtFo0ckjeLyPQYmv5eAYVY2WxlQ5Zq2op4y4ep8dvkNpPLn+fJh7EUugoy/g==",
+      "path": "system.componentmodel.typeconverter/4.1.0",
+      "hashPath": "system.componentmodel.typeconverter.4.1.0.nupkg.sha512"
+    },
+    "system.data.common/4.3.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-1rAmZJf7BOHlK94FFRFygU1SL0AM5Mw6J+rMk/6S8G1JtKwk387StLn/9sRXnAs6MRYZGS1a+HaEV0AQY9BOoA==",
+      "path": "system.data.common/4.3.0",
+      "hashPath": "system.data.common.4.3.0.nupkg.sha512"
+    },
+    "system.drawing.primitives/4.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-9lVRG1voBwzLGZkf1XFJrobdZDZ5ZHMU4FVTbXAbzehpN90yYgkUeo9GoEYdvkt/EXaaHZJAeuffXP4JBbY+Ig==",
+      "path": "system.drawing.primitives/4.0.0",
+      "hashPath": "system.drawing.primitives.4.0.0.nupkg.sha512"
+    },
+    "system.security.cryptography.pkcs/4.3.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Ks0AAotG7oPD9WZOW6k2vUQ2I5ZPQLsaVlRdpRh131EIVR5Rgm4qz0koaO4D01NWavD0FYV09Op+3GuzM7zbwA==",
+      "path": "system.security.cryptography.pkcs/4.3.0",
+      "hashPath": "system.security.cryptography.pkcs.4.3.0.nupkg.sha512"
+    },
+    "system.text.encoding.codepages/4.3.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-IRiEFUa5b/Gs5Egg8oqBVoywhtOeaO2KOx3j0RfcYY/raxqBuEK7NXRDgOwtYM8qbi+7S4RPXUbNt+ZxyY0/NQ==",
+      "path": "system.text.encoding.codepages/4.3.0",
+      "hashPath": "system.text.encoding.codepages.4.3.0.nupkg.sha512"
+    },
+    "system.xml.xmldocument/4.3.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-lJ8AxvkX7GQxpC6GFCeBj8ThYVyQczx2+f/cWHJU8tjS7YfI6Cv6bon70jVEgs2CiFbmmM8b9j1oZVx0dSI2Ww==",
+      "path": "system.xml.xmldocument/4.3.0",
+      "hashPath": "system.xml.xmldocument.4.3.0.nupkg.sha512"
+    },
+    "system.xml.xpath/4.3.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-v1JQ5SETnQusqmS3RwStF7vwQ3L02imIzl++sewmt23VGygix04pEH+FCj1yWb+z4GDzKiljr1W7Wfvrx0YwgA==",
+      "path": "system.xml.xpath/4.3.0",
+      "hashPath": "system.xml.xpath.4.3.0.nupkg.sha512"
+    },
+    "system.xml.xpath.xmldocument/4.3.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-A/uxsWi/Ifzkmd4ArTLISMbfFs6XpRPsXZonrIqyTY70xi8t+mDtvSM5Os0RqyRDobjMBwIDHDL4NOIbkDwf7A==",
+      "path": "system.xml.xpath.xmldocument/4.3.0",
+      "hashPath": "system.xml.xpath.xmldocument.4.3.0.nupkg.sha512"
+    }
+  }
+}

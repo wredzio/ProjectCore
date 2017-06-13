@@ -1,0 +1,9 @@
+c:\users\wredzio\documents\visual studio 2017\Projects\ProjectCore\ProjectCore\bin\Debug\netcoreapp1.1\ProjectCore.deps.json
+c:\users\wredzio\documents\visual studio 2017\Projects\ProjectCore\ProjectCore\bin\Debug\netcoreapp1.1\ProjectCore.runtimeconfig.json
+c:\users\wredzio\documents\visual studio 2017\Projects\ProjectCore\ProjectCore\bin\Debug\netcoreapp1.1\ProjectCore.runtimeconfig.dev.json
+c:\users\wredzio\documents\visual studio 2017\Projects\ProjectCore\ProjectCore\obj\Debug\netcoreapp1.1\ProjectCore.csprojResolveAssemblyReference.cache
+c:\users\wredzio\documents\visual studio 2017\Projects\ProjectCore\ProjectCore\obj\Debug\netcoreapp1.1\ProjectCore.AssemblyInfo.cs
+c:\users\wredzio\documents\visual studio 2017\Projects\ProjectCore\ProjectCore\bin\Debug\netcoreapp1.1\ProjectCore.dll
+c:\users\wredzio\documents\visual studio 2017\Projects\ProjectCore\ProjectCore\bin\Debug\netcoreapp1.1\ProjectCore.pdb
+c:\users\wredzio\documents\visual studio 2017\Projects\ProjectCore\ProjectCore\obj\Debug\netcoreapp1.1\ProjectCore.dll
+c:\users\wredzio\documents\visual studio 2017\Projects\ProjectCore\ProjectCore\obj\Debug\netcoreapp1.1\ProjectCore.pdb

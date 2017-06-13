@@ -1,0 +1,8 @@
+C:\Users\Wredzio\documents\visual studio 2017\Projects\ProjectCore\ProjectCore\bin\Release\netcoreapp1.1\ProjectCore.deps.json
+C:\Users\Wredzio\documents\visual studio 2017\Projects\ProjectCore\ProjectCore\bin\Release\netcoreapp1.1\ProjectCore.runtimeconfig.json
+C:\Users\Wredzio\documents\visual studio 2017\Projects\ProjectCore\ProjectCore\bin\Release\netcoreapp1.1\ProjectCore.runtimeconfig.dev.json
+C:\Users\Wredzio\documents\visual studio 2017\Projects\ProjectCore\ProjectCore\bin\Release\netcoreapp1.1\ProjectCore.dll
+C:\Users\Wredzio\documents\visual studio 2017\Projects\ProjectCore\ProjectCore\bin\Release\netcoreapp1.1\ProjectCore.pdb
+C:\Users\Wredzio\documents\visual studio 2017\Projects\ProjectCore\ProjectCore\obj\Release\netcoreapp1.1\ProjectCore.AssemblyInfo.cs
+C:\Users\Wredzio\documents\visual studio 2017\Projects\ProjectCore\ProjectCore\obj\Release\netcoreapp1.1\ProjectCore.dll
+C:\Users\Wredzio\documents\visual studio 2017\Projects\ProjectCore\ProjectCore\obj\Release\netcoreapp1.1\ProjectCore.pdb
