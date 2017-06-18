@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.26430.13
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectCore", "ProjectCore\ProjectCore.csproj", "{1164B195-E6FC-476D-9E98-80CEE96C8655}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeneticAlgorithmSchedule", "GenericAlgorithmSchedule\GeneticAlgorithmSchedule.csproj", "{D1D31BB1-2594-4E18-8027-3D3F6F19617D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{1164B195-E6FC-476D-9E98-80CEE96C8655}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1164B195-E6FC-476D-9E98-80CEE96C8655}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1164B195-E6FC-476D-9E98-80CEE96C8655}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D1D31BB1-2594-4E18-8027-3D3F6F19617D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D1D31BB1-2594-4E18-8027-3D3F6F19617D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D1D31BB1-2594-4E18-8027-3D3F6F19617D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D1D31BB1-2594-4E18-8027-3D3F6F19617D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

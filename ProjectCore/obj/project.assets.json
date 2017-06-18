@@ -2471,6 +2471,13 @@
         "runtime": {
           "lib/netstandard1.3/System.Xml.XPath.XmlDocument.dll": {}
         }
+      },
+      "GeneticAlgorithmSchedule/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v1.4",
+        "dependencies": {
+          "NETStandard.Library": "1.6.1"
+        }
       }
     }
   },
@@ -7544,11 +7551,17 @@
         "system.xml.xpath.xmldocument.4.3.0.nupkg.sha512",
         "system.xml.xpath.xmldocument.nuspec"
       ]
+    },
+    "GeneticAlgorithmSchedule/1.0.0": {
+      "type": "project",
+      "path": "../GenericAlgorithmSchedule/GeneticAlgorithmSchedule.csproj",
+      "msbuildProject": "../GenericAlgorithmSchedule/GeneticAlgorithmSchedule.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v1.1": [
       "EPPlus.Core >= 1.5.1",
+      "GeneticAlgorithmSchedule >= 1.0.0",
       "Microsoft.NETCore.App >= 1.1.2"
     ]
   },
@@ -7568,7 +7581,11 @@
       ],
       "frameworks": {
         "netcoreapp1.1": {
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\Wredzio\\documents\\visual studio 2017\\Projects\\ProjectCore\\GenericAlgorithmSchedule\\GeneticAlgorithmSchedule.csproj": {
+              "projectPath": "C:\\Users\\Wredzio\\documents\\visual studio 2017\\Projects\\ProjectCore\\GenericAlgorithmSchedule\\GeneticAlgorithmSchedule.csproj"
+            }
+          }
         }
       }
     },

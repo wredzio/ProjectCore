@@ -1,7 +1,9 @@
-using System.Collections.Generic;
+﻿
 using System;
+using System.Collections.Generic;
+using System.Text;
 
-namespace ProjectCore.Algotithm
+namespace GeneticAlgorithmSchedule.Models
 {
     public class Professor
     {
@@ -9,14 +11,14 @@ namespace ProjectCore.Algotithm
         public string Name { get; set; }
         public List<CourseClass> CourseClasses { get; set; }
 
-        public override bool Equals(Object obj) 
+        public override bool Equals(Object obj)
         {
-            if (obj == null || GetType() != obj.GetType()) 
+            if (obj == null || GetType() != obj.GetType())
                 return false;
 
-          Professor professor = (Professor)obj;
+            Professor professor = (Professor)obj;
 
-          return professor.Id == this.Id;
+            return professor.Id == this.Id;
         }
 
         public override int GetHashCode()

@@ -10,7 +10,7 @@ namespace ProjectCore.Algotithm
         private Random rand = new Random();
         public Schedule[] Chromosomes { get; set; }
         public List<bool> BestFlags { get; set; }
-        public int[] BestChromosomes { get; set; }
+        public int[] IndexesOfBestChromosomes { get; set; }
         public int CurrentBestSize { get; set; }
         public Schedule Prototype { get; set; }
         public int CurrentGeneration { get; set; }
@@ -32,7 +32,7 @@ namespace ProjectCore.Algotithm
             Chromosomes = new Schedule[numberOfChromosomes];
             BestFlags = Extensions.RepeatedDefault<bool>(numberOfChromosomes);
 
-            BestChromosomes = new int[trackBest];
+            IndexesOfBestChromosomes = new int[trackBest];
 
         }
 
@@ -104,7 +104,7 @@ namespace ProjectCore.Algotithm
 
         Schedule GetBestChromosome()
         {
-            return Chromosomes[BestChromosomes[0]];
+            return Chromosomes[IndexesOfBestChromosomes[0]];
         }
 
         bool IsInBest(int chromosomeIndex)
@@ -114,30 +114,30 @@ namespace ProjectCore.Algotithm
 
         void AddToBest(int chromosomeIndex)
         {
-            if ((CurrentBestSize == BestChromosomes.Length &&
-                Chromosomes[BestChromosomes[CurrentBestSize - 1]].Fitness >=
+            if ((CurrentBestSize == IndexesOfBestChromosomes.Length &&
+                Chromosomes[IndexesOfBestChromosomes[CurrentBestSize - 1]].Fitness >=
                 Chromosomes[chromosomeIndex].Fitness) || BestFlags[chromosomeIndex])
                 return;
 
             int i = CurrentBestSize;
             for (; i > 0; i--)
             {
-                if (i < BestChromosomes.Length)
+                if (i < IndexesOfBestChromosomes.Length)
                 {
-                    if (Chromosomes[ BestChromosomes[i - 1]].Fitness >
+                    if (Chromosomes[ IndexesOfBestChromosomes[i - 1]].Fitness >
                         Chromosomes[chromosomeIndex].Fitness)
                         break;
 
-                    BestChromosomes[i] = BestChromosomes[i - 1];
+                    IndexesOfBestChromosomes[i] = IndexesOfBestChromosomes[i - 1];
                 }
                 else
-                    BestFlags[BestChromosomes[i - 1]] = false;
+                    BestFlags[IndexesOfBestChromosomes[i - 1]] = false;
             }
 
-            BestChromosomes[i] = chromosomeIndex;
+            IndexesOfBestChromosomes[i] = chromosomeIndex;
             BestFlags[chromosomeIndex] = true;
 
-            if (CurrentBestSize < BestChromosomes.Length)
+            if (CurrentBestSize < IndexesOfBestChromosomes.Length)
                 CurrentBestSize++;
         }
 

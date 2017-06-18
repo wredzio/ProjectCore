@@ -4,12 +4,12 @@ using System.Linq;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using ProjectCore.Algotithm;
+using GeneticAlgorithmSchedule.Models;
 
 namespace ProjectCore
 {
     //Temp class -> Create Repository and Services
-    public class Config
+    public class Config2
     {
         private const string XlsxContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
 
@@ -148,15 +148,15 @@ namespace ProjectCore
             }
         }
 
-        public static void CreateSchedule(Schedule bestChromosome)
+        public static void CreateSchedule(Schedule bestChromosome, School school)
         {
-            using (var package = createExcelPackage(bestChromosome))
+            using (var package = createExcelPackage(bestChromosome, school))
             {
                 package.SaveAs(new FileInfo("ProjectData/OutputExcel.xlsx"));
             }
         }
 
-        private static ExcelPackage createExcelPackage(Schedule bestChromosome)
+        private static ExcelPackage createExcelPackage(Schedule bestChromosome, School school)
         {
             var package = new ExcelPackage();
             package.Workbook.Properties.Title = "Plan";
@@ -173,15 +173,15 @@ namespace ProjectCore
                 var value = item.Value;
                 var index = item.Index;
 
-                for (int dayOfWeek = 1; dayOfWeek <= Schedule.NUMBER_OF_DAYS; dayOfWeek++)
+                for (int dayOfWeek = 1; dayOfWeek <= school.NumberOfWorkDays; dayOfWeek++)
                 {
-                    worksheet.Cells[(index * (Schedule.NUMBER_OF_HOURS_IN_DAY + 3) + 1), 1].Value = item.Value.Name;
-                    worksheet.Cells[(index * (Schedule.NUMBER_OF_HOURS_IN_DAY + 3) + 2), 1].Value = "Godzina/Dzieñ";
-                    worksheet.Cells[(index * (Schedule.NUMBER_OF_HOURS_IN_DAY + 3) + 2), dayOfWeek + 1].Value = dayOfWeek;
+                    worksheet.Cells[(index * (school.NumberOfHoursInDay + 3) + 1), 1].Value = item.Value.Name;
+                    worksheet.Cells[(index * (school.NumberOfHoursInDay + 3) + 2), 1].Value = "Godzina/Dzieñ";
+                    worksheet.Cells[(index * (school.NumberOfHoursInDay + 3) + 2), dayOfWeek + 1].Value = dayOfWeek;
 
-                    for (int hour = 0; hour < Schedule.NUMBER_OF_HOURS_IN_DAY; hour++)
+                    for (int hour = 0; hour < school.NumberOfHoursInDay; hour++)
                     {
-                        worksheet.Cells[(index * (Schedule.NUMBER_OF_HOURS_IN_DAY + 3) + 3) + hour, 1].Value = hour + 7;
+                        worksheet.Cells[(index * (school.NumberOfHoursInDay + 3) + 3) + hour, 1].Value = hour + 7;
 
 
                     }
@@ -190,16 +190,16 @@ namespace ProjectCore
                 foreach (var _class in bestChromosome.Classes)
                 {
                     int numberOfRooms = Rooms.Count;
-                    int daySize = Schedule.NUMBER_OF_HOURS_IN_DAY * numberOfRooms;
+                    int daySize = school.NumberOfHoursInDay * numberOfRooms;
 
                     int position = _class.Value;
                     int day = position / daySize;
                     int time = position % daySize;
-                    int roomId = time / Schedule.NUMBER_OF_HOURS_IN_DAY;
+                    int roomId = time / school.NumberOfHoursInDay;
                     if (roomId == 0)
                         roomId = numberOfRooms;
 
-                    time = time % Schedule.NUMBER_OF_HOURS_IN_DAY;
+                    time = time % school.NumberOfHoursInDay;
 
                     int duration = _class.Key.Duration;
 
@@ -207,7 +207,7 @@ namespace ProjectCore
                     {
                         for (int i = duration - 1; i >= 0; i--)
                         {
-                            worksheet.Cells[(index * (Schedule.NUMBER_OF_HOURS_IN_DAY + 3) + 3) + time + i, day +2].Value = _class.Key.Course.Name + " / " + string.Join(",", _class.Key.StudentsGroups.Select(o => o.Name)) ;
+                            worksheet.Cells[(index * (school.NumberOfHoursInDay + 3) + 3) + time + i, day +2].Value = _class.Key.Course.Name + " / " + string.Join(",", _class.Key.StudentsGroups.Select(o => o.Name)) ;
                         }
                     }
                 }
