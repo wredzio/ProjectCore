@@ -16,7 +16,7 @@ namespace GeneticAlgorithmSchedule.Infrastructure.Concrete
 
         private AlgorithmConfig _algorithmConfig;
         private School _school;
-        private Random _rand;//zmiana nazwy
+        private Random _rand;
 
         public GeneticAlgorithmSchedule(AlgorithmConfig algorithmConfig, School school)
         {
@@ -29,34 +29,43 @@ namespace GeneticAlgorithmSchedule.Infrastructure.Concrete
             CurrentBestSize = 0;
         }
 
-        protected override IEnumerable<Schedule> CreateNewPopulation(IEnumerable<Schedule> offsrping, IEnumerable<Schedule> oldPopulation)
+        protected override Schedule GetBestChromosome(IEnumerable<Schedule> population)
         {
-            var newPopulation = _population.ToArray();
+            return population.ElementAt(IndexesOfBestChromosomes[0]);
+        }
 
-            for (int j = 0; j < _algorithmConfig.ReplaceByGeneration; j++)
+        protected override IEnumerable<Schedule> InitializePopulation()
+        {
+            List<Schedule> population = new List<Schedule>();
+            ClearBest();
+
+            for (int i = 0; i < _algorithmConfig.NumberOfChromosomes; i++)
             {
-                int ci;
+                var schedule = new Schedule(_school, false, _rand);
 
-                do
+                population.Add(schedule);
+                AddToBest(i, population);
+            }
+            return population;
+        }
+
+        protected override bool IsEvaluationConditionSufficient(IEnumerable<Schedule> population)
+        {
+            return GetBestChromosome(population).Fitness >= 1;
+        }
+
+        protected override IEnumerable<Parents<Schedule>> SelectParents(IEnumerable<Schedule> population)
+        {
+            List<Parents<Schedule>> paterns = new List<Parents<Schedule>>();
+            for (int i = 0; i < _algorithmConfig.ReplaceByGeneration; i++)
+            {
+                paterns.Add(new Parents<Schedule>()
                 {
-                    ci = _rand.Next() % _population.Count();
-
-                } while (IsInBest(ci));
-
-                newPopulation[ci] = offsrping.ToArray()[j];
-
-                AddToBest(ci, newPopulation);
+                    FirstParent = population.ElementAt(_rand.Next() % population.Count()),
+                    SecondParent = population.ElementAt(_rand.Next() % population.Count())
+                });
             }
-
-            float sum = 0;
-            foreach (var ch in _population)
-            {
-                sum = sum + ch.Fitness;
-            }
-
-            Console.WriteLine("Średnia populacji: " + sum / _population.Count() + " Najlepszy : " + GetBestChromosome().Fitness);
-
-            return newPopulation;
+            return paterns;
         }
 
         protected override IEnumerable<Schedule> Crossover(IEnumerable<Parents<Schedule>> parentsList)
@@ -70,12 +79,14 @@ namespace GeneticAlgorithmSchedule.Infrastructure.Concrete
                 if (_rand.Next() % 100 > _algorithmConfig.CrosoverProbability)
                 {
                     if (_rand.Next() % 2 == 0)
-                        yield return parents.FirstParent.Copy();
+                        offsrping.Add(parents.FirstParent.Copy());
                     else
-                        yield return parents.SecondParent.Copy();
+                        offsrping.Add(parents.SecondParent.Copy());
+
+                    continue;
                 }
 
-                Schedule child = new Schedule(_school, true);
+                Schedule child = new Schedule(_school, true, _rand);
 
                 int size = _school.CourseClasses.Count();
 
@@ -127,32 +138,13 @@ namespace GeneticAlgorithmSchedule.Infrastructure.Concrete
                 }
                 child.CalculateFitness();
 
-                yield return child;
+                offsrping.Add(child);
             }
+            return offsrping;
         }
-
-        protected override IEnumerable<Schedule> InitializePopulation()
-        {
-            List<Schedule> population = new List<Schedule>();
-            ClearBest();
-
-            for (int i = 0; i < _algorithmConfig.NumberOfChromosomes; i++)
-            {
-                population.Add(new Schedule(_school, false));
-                AddToBest(i, population);
-            }
-            return population;
-        }
-
-        protected override bool IsEvaluationConditionSufficient()
-        {
-            return GetBestChromosome().Fitness >= 1;
-        }
-
+       
         protected override IEnumerable<Schedule> Mutation(IEnumerable<Schedule> offsrping)
         {
-            offsrping = offsrping.ToList();
-
             List<Schedule> offspringAfterMutation = new List<Schedule>();
 
             foreach (Schedule child in offsrping)
@@ -160,7 +152,8 @@ namespace GeneticAlgorithmSchedule.Infrastructure.Concrete
 
                 if (_rand.Next() % 100 > _algorithmConfig.MutationProbability)
                 {
-                    yield return child;
+                    offspringAfterMutation.Add(child);
+                    continue;
                 }
 
                 int numberOfClasses = child.Classes.Count;
@@ -197,23 +190,40 @@ namespace GeneticAlgorithmSchedule.Infrastructure.Concrete
                 }
                 child.CalculateFitness();
 
-                yield return child;
+                offspringAfterMutation.Add(child);
             }
-
+            return offspringAfterMutation;
         }
-
-        protected override IEnumerable<Parents<Schedule>> SelectParents(IEnumerable<Schedule> population)//zamiana na yeld
+        
+        protected override IEnumerable<Schedule> CreateNewPopulation(IEnumerable<Schedule> offsrping, IEnumerable<Schedule> oldPopulation)
         {
-            List<Parents<Schedule>> paterns = new List<Parents<Schedule>>();
-            for (int i = 0; i < _algorithmConfig.ReplaceByGeneration; i++)
+            var newPopulation = oldPopulation.ToArray();
+            offsrping = offsrping.ToArray();
+
+            for (int j = 0; j < _algorithmConfig.ReplaceByGeneration; j++)
             {
-                paterns.Add(new Parents<Schedule>()
+                int ci;
+
+                do
                 {
-                    FirstParent = population.ElementAt(_rand.Next() % population.Count()),
-                    SecondParent = population.ElementAt(_rand.Next() % population.Count())
-                });
+                    ci = _rand.Next() % oldPopulation.Count();
+
+                } while (IsInBest(ci));
+
+                newPopulation[ci] = offsrping.ElementAt(j);
+
+                AddToBest(ci, newPopulation);
             }
-            return paterns;
+
+            float sum = 0;
+            foreach (var ch in oldPopulation)
+            {
+                sum = sum + ch.Fitness;
+            }
+
+            Console.WriteLine("Średnia populacji: " + sum / oldPopulation.Count() + " Najlepszy : " + GetBestChromosome(oldPopulation).Fitness);
+
+            return newPopulation;
         }
 
         private bool IsInBest(int chromosomeIndex)
@@ -258,11 +268,6 @@ namespace GeneticAlgorithmSchedule.Infrastructure.Concrete
                 BestFlags[i] = false;
 
             CurrentBestSize = 0;
-        }
-
-        private Schedule GetBestChromosome()
-        {
-            return _population.ElementAt(IndexesOfBestChromosomes[0]);
-        }
+        }      
     }
 }

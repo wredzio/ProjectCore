@@ -8,24 +8,25 @@ namespace GeneticAlgorithmSchedule.Infrastructure.Abstract
     {
         public int CurrentGeneration { get; protected set; }
 
-        protected IEnumerable<T> _population;
-        protected IEnumerable<Parents<T>> _parentsList;
-        protected IEnumerable<T> _offsrping;
+        private IEnumerable<T> _population;
+        private IEnumerable<Parents<T>> _parentsList;
+        private IEnumerable<T> _offsrping;
 
         protected abstract IEnumerable<T> InitializePopulation();
-        protected abstract bool IsEvaluationConditionSufficient();
+        protected abstract bool IsEvaluationConditionSufficient(IEnumerable<T> population);
         protected abstract IEnumerable<Parents<T>> SelectParents(IEnumerable<T> population);
         protected abstract IEnumerable<T> Crossover(IEnumerable<Parents<T>> parentsList);
         protected abstract IEnumerable<T> Mutation(IEnumerable<T> offsrping);
         protected abstract IEnumerable<T> CreateNewPopulation(IEnumerable<T> offsrping, IEnumerable<T> oldPopulation);
+        protected abstract T GetBestChromosome(IEnumerable<T> population);
 
-        public void Start()
+        public T Run()
         {
             _population = InitializePopulation();
 
             CurrentGeneration = 0;
 
-            while (!IsEvaluationConditionSufficient())
+            while (!IsEvaluationConditionSufficient(_population))
             {
                 _parentsList = SelectParents(_population);
 
@@ -35,6 +36,8 @@ namespace GeneticAlgorithmSchedule.Infrastructure.Abstract
 
                 CurrentGeneration = CurrentGeneration + 1; ;
             }
+
+            return GetBestChromosome(_population);
         }
     }
 

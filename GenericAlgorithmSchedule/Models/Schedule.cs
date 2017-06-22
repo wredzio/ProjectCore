@@ -30,7 +30,7 @@ namespace GeneticAlgorithmSchedule.Models
 
     public class Schedule
     {
-        private Random rand = new Random();
+        private Random _rand;
 
         public const int NUMBER_OF_SCORE = 5;
         public float Fitness { get; set; }
@@ -39,9 +39,10 @@ namespace GeneticAlgorithmSchedule.Models
         public Dictionary<CourseClass, int> Classes { get; set; }
         public School School { get; set; }
 
-        public Schedule(School school, bool createWithEmptySlots)
+        public Schedule(School school, bool createWithEmptySlots, Random rand)
         {
             this.School = school;
+            this._rand = rand;
             this.Fitness = 0;
 
             Classes = new Dictionary<CourseClass, int>();
@@ -67,6 +68,7 @@ namespace GeneticAlgorithmSchedule.Models
 
         private Schedule(Schedule schedule)
         {
+            this._rand = schedule._rand;
             this.Slots = schedule.Slots;
             this.Classes = schedule.Classes;
             this.Criteria = schedule.Criteria;
@@ -87,9 +89,9 @@ namespace GeneticAlgorithmSchedule.Models
             {
                 int numberOfRooms = School.Rooms.Count();
                 int duration = courseClass.Duration;
-                int day = rand.Next() % School.NumberOfWorkDays;
-                int room = rand.Next() % numberOfRooms;
-                int time = rand.Next() % (School.NumberOfHoursInDay + 1 - duration);
+                int day = _rand.Next() % School.NumberOfWorkDays;
+                int room = _rand.Next() % numberOfRooms;
+                int time = _rand.Next() % (School.NumberOfHoursInDay + 1 - duration);
                 int position = day * numberOfRooms * School.NumberOfHoursInDay + room * School.NumberOfHoursInDay + time;
 
                 for (int i = duration - 1; i >= 0; i--)

@@ -22,17 +22,19 @@ namespace ProjectCore
             AlgorithmConfig algorithmConfig = new AlgorithmConfig()
             {
                 CrosoverProbability = 90,
-                MutationProbability = 10,
+                MutationProbability = 5,
                 MutationSize = 2,
-                NumberOfChromosomes = 100,
+                NumberOfChromosomes = 500,
                 NumberOfCrossoverPoints = 2,
-                ReplaceByGeneration = 20,
-                TrackBest = 5
+                ReplaceByGeneration = 400,
+                TrackBest = 300
             };
 
             GeneticAlgorithm<Schedule> a = new GeneticAlgorithmSchedule.Infrastructure.Concrete.GeneticAlgorithmSchedule(algorithmConfig, school);
 
-            a.Start();
+            Schedule result = a.Run();
+
+            Config2.CreateSchedule(result, school);
 
             //Schedule prototype = new Schedule(2, 2, 90, 10);
 
