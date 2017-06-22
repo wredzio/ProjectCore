@@ -10,6 +10,7 @@ namespace GeneticAlgorithmSchedule.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public List<CourseClass> CourseClasses { get; set; }
+        public List<int> Available { get; set; }
 
         public override bool Equals(Object obj)
         {

@@ -134,7 +134,7 @@ namespace ProjectCore
             {
                 var worksheet = package.Workbook.Worksheets["Professor"];
                 int rowCount = worksheet.Dimension.Rows;
-                int ColCount = worksheet.Dimension.Columns;
+                int colCount = worksheet.Dimension.Columns;
 
                 for (int row = 2; row <= rowCount; row++)
                 {
@@ -142,9 +142,23 @@ namespace ProjectCore
                     {
                         Id = Int32.Parse(worksheet.Cells[row, 1].Value.ToString()),
                         Name = worksheet.Cells[row, 2].Value.ToString(),
-                        CourseClasses = new List<CourseClass>()
+                        CourseClasses = new List<CourseClass>(),
+                        Available = new List<int>()
                     });
                 }
+
+                var professorAvailable = package.Workbook.Worksheets["Available"];
+                int professorAvailableRowCount = professorAvailable.Dimension.Rows;
+                int professorAvailableColCount = professorAvailable.Dimension.Columns;
+
+                for (int row = 2; row <= professorAvailableRowCount; row++)
+                {
+                    int professorId = Int32.Parse(professorAvailable.Cells[row, 1].Value.ToString());
+                    int availableIndex = Int32.Parse(professorAvailable.Cells[row, 2].Value.ToString());
+
+                    Professors.FirstOrDefault(p => p.Id == professorId).Available.Add(availableIndex);
+                }
+
             }
         }
 
@@ -203,11 +217,11 @@ namespace ProjectCore
 
                     int duration = _class.Key.Duration;
 
-                    if(roomId == value.Id)
+                    if (roomId == value.Id)
                     {
                         for (int i = duration - 1; i >= 0; i--)
                         {
-                            worksheet.Cells[(index * (school.NumberOfHoursInDay + 3) + 3) + time + i, day +2].Value = _class.Key.Course.Name + " / " + string.Join(",", _class.Key.StudentsGroups.Select(o => o.Name)) ;
+                            worksheet.Cells[(index * (school.NumberOfHoursInDay + 3) + 3) + time + i, day + 2].Value = _class.Key.Course.Name + " / " + string.Join(",", _class.Key.StudentsGroups.Select(o => o.Name)) + " " + _class.Key.Professor.Id + " " + _class.Key.Professor.Name;
                         }
                     }
                 }

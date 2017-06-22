@@ -31,7 +31,7 @@ namespace GeneticAlgorithmSchedule.Infrastructure.Concrete
 
         protected override Schedule GetBestChromosome(IEnumerable<Schedule> population)
         {
-            return population.ElementAt(IndexesOfBestChromosomes[0]);
+            return population.OrderBy(o => o.Fitness).LastOrDefault();
         }
 
         protected override IEnumerable<Schedule> InitializePopulation()
@@ -216,12 +216,12 @@ namespace GeneticAlgorithmSchedule.Infrastructure.Concrete
             }
 
             float sum = 0;
-            foreach (var ch in oldPopulation)
+            foreach (var ch in newPopulation)
             {
                 sum = sum + ch.Fitness;
             }
 
-            Console.WriteLine("Średnia populacji: " + sum / oldPopulation.Count() + " Najlepszy : " + GetBestChromosome(oldPopulation).Fitness);
+            Console.WriteLine("Średnia populacji: " + sum / newPopulation.Count() + " Najlepszy : " + GetBestChromosome(newPopulation).Fitness);
 
             return newPopulation;
         }

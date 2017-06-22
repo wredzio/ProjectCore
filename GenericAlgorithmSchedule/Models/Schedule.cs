@@ -32,7 +32,7 @@ namespace GeneticAlgorithmSchedule.Models
     {
         private Random _rand;
 
-        public const int NUMBER_OF_SCORE = 5;
+        public const int NUMBER_OF_SCORE = 6;
         public float Fitness { get; set; }
         public List<bool> Criteria { get; set; }
         public List<CourseClass>[] Slots { get; set; }
@@ -53,7 +53,7 @@ namespace GeneticAlgorithmSchedule.Models
                 Slots[i] = new List<CourseClass>();
             }
 
-            Criteria = Extensions.RepeatedDefault<bool>(School.CourseClasses.Count() * 5);
+            Criteria = Extensions.RepeatedDefault<bool>(School.CourseClasses.Count() * NUMBER_OF_SCORE);
 
             if(!createWithEmptySlots)
             {
@@ -117,6 +117,7 @@ namespace GeneticAlgorithmSchedule.Models
             foreach (var _class in Classes)
             {
                 int position = _class.Value;
+
                 int day = position / daySize;
                 int time = position % daySize;
                 int roomId = time / School.NumberOfHoursInDay;
@@ -197,7 +198,22 @@ namespace GeneticAlgorithmSchedule.Models
 
                 Criteria[criteria + 4] = !studentsGroupOverlap;
 
-                criteria = criteria + 5;
+                bool isProfessorAvilable = true;
+                for (int i = 0; i < duration; i++)
+                {
+                    if (!courseClass.Professor.Available.Any(o => o == time + day * School.NumberOfHoursInDay + i))
+                    {
+                        isProfessorAvilable = false;
+                        break;
+                    }
+                }
+
+                Criteria[criteria + 5] = isProfessorAvilable;
+
+                if (isProfessorAvilable)
+                    score++;
+
+                criteria = criteria + NUMBER_OF_SCORE;
             }
 
             Fitness = (float)score / (School.CourseClasses.Count() * NUMBER_OF_SCORE);

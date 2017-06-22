@@ -1,6 +1,7 @@
 ﻿using GeneticAlgorithmSchedule.Infrastructure.Abstract;
 using GeneticAlgorithmSchedule.Models;
 using System;
+using System.Linq;
 
 namespace ProjectCore
 {
@@ -27,12 +28,20 @@ namespace ProjectCore
                 NumberOfChromosomes = 500,
                 NumberOfCrossoverPoints = 2,
                 ReplaceByGeneration = 400,
-                TrackBest = 300
+                TrackBest = 20
             };
 
             GeneticAlgorithm<Schedule> a = new GeneticAlgorithmSchedule.Infrastructure.Concrete.GeneticAlgorithmSchedule(algorithmConfig, school);
 
             Schedule result = a.Run();
+
+
+            var ab = result.Slots.Where(o => o.Count == 2).Count();
+            if (ab != 0)
+            {
+                result.CalculateFitness();
+                throw new Exception();
+            }
 
             Config2.CreateSchedule(result, school);
 
