@@ -25,23 +25,15 @@ namespace ProjectCore
                 CrosoverProbability = 90,
                 MutationProbability = 5,
                 MutationSize = 2,
-                NumberOfChromosomes = 500,
+                NumberOfChromosomes = 800,
                 NumberOfCrossoverPoints = 2,
-                ReplaceByGeneration = 400,
-                TrackBest = 20
+                ReplaceByGeneration = 500,
+                TrackBest = 300
             };
 
             GeneticAlgorithm<Schedule> a = new GeneticAlgorithmSchedule.Infrastructure.Concrete.GeneticAlgorithmSchedule(algorithmConfig, school);
 
             Schedule result = a.Run();
-
-
-            var ab = result.Slots.Where(o => o.Count == 2).Count();
-            if (ab != 0)
-            {
-                result.CalculateFitness();
-                throw new Exception();
-            }
 
             Config2.CreateSchedule(result, school);
 

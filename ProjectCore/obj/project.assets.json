@@ -7571,10 +7571,10 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Wredzio\\documents\\visual studio 2017\\Projects\\ProjectCore\\ProjectCore\\ProjectCore.csproj",
+      "projectUniqueName": "C:\\Users\\Wredzio\\Documents\\Visual Studio 2017\\Projects\\ProjectCore\\ProjectCore\\ProjectCore.csproj",
       "projectName": "ProjectCore",
-      "projectPath": "C:\\Users\\Wredzio\\documents\\visual studio 2017\\Projects\\ProjectCore\\ProjectCore\\ProjectCore.csproj",
-      "outputPath": "C:\\Users\\Wredzio\\documents\\visual studio 2017\\Projects\\ProjectCore\\ProjectCore\\obj\\",
+      "projectPath": "C:\\Users\\Wredzio\\Documents\\Visual Studio 2017\\Projects\\ProjectCore\\ProjectCore\\ProjectCore.csproj",
+      "outputPath": "C:\\Users\\Wredzio\\Documents\\Visual Studio 2017\\Projects\\ProjectCore\\ProjectCore\\obj\\",
       "projectStyle": "PackageReference",
       "originalTargetFrameworks": [
         "netcoreapp1.1"
@@ -7582,8 +7582,8 @@
       "frameworks": {
         "netcoreapp1.1": {
           "projectReferences": {
-            "C:\\Users\\Wredzio\\documents\\visual studio 2017\\Projects\\ProjectCore\\GenericAlgorithmSchedule\\GeneticAlgorithmSchedule.csproj": {
-              "projectPath": "C:\\Users\\Wredzio\\documents\\visual studio 2017\\Projects\\ProjectCore\\GenericAlgorithmSchedule\\GeneticAlgorithmSchedule.csproj"
+            "C:\\Users\\Wredzio\\Documents\\Visual Studio 2017\\Projects\\ProjectCore\\GenericAlgorithmSchedule\\GeneticAlgorithmSchedule.csproj": {
+              "projectPath": "C:\\Users\\Wredzio\\Documents\\Visual Studio 2017\\Projects\\ProjectCore\\GenericAlgorithmSchedule\\GeneticAlgorithmSchedule.csproj"
             }
           }
         }

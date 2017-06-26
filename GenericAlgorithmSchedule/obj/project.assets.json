@@ -3708,10 +3708,10 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Wredzio\\documents\\visual studio 2017\\Projects\\ProjectCore\\GenericAlgorithmSchedule\\GeneticAlgorithmSchedule.csproj",
+      "projectUniqueName": "C:\\Users\\Wredzio\\Documents\\Visual Studio 2017\\Projects\\ProjectCore\\GenericAlgorithmSchedule\\GeneticAlgorithmSchedule.csproj",
       "projectName": "GeneticAlgorithmSchedule",
-      "projectPath": "C:\\Users\\Wredzio\\documents\\visual studio 2017\\Projects\\ProjectCore\\GenericAlgorithmSchedule\\GeneticAlgorithmSchedule.csproj",
-      "outputPath": "C:\\Users\\Wredzio\\documents\\visual studio 2017\\Projects\\ProjectCore\\GenericAlgorithmSchedule\\obj\\",
+      "projectPath": "C:\\Users\\Wredzio\\Documents\\Visual Studio 2017\\Projects\\ProjectCore\\GenericAlgorithmSchedule\\GeneticAlgorithmSchedule.csproj",
+      "outputPath": "C:\\Users\\Wredzio\\Documents\\Visual Studio 2017\\Projects\\ProjectCore\\GenericAlgorithmSchedule\\obj\\",
       "projectStyle": "PackageReference",
       "originalTargetFrameworks": [
         "netstandard1.4"

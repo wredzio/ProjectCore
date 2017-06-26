@@ -78,11 +78,7 @@ namespace GeneticAlgorithmSchedule.Infrastructure.Concrete
             {
                 if (_rand.Next() % 100 > _algorithmConfig.CrosoverProbability)
                 {
-                    if (_rand.Next() % 2 == 0)
-                        offsrping.Add(parents.FirstParent.Copy());
-                    else
-                        offsrping.Add(parents.SecondParent.Copy());
-
+                    offsrping.Add(new Schedule(_school, false, _rand));
                     continue;
                 }
 
@@ -142,7 +138,7 @@ namespace GeneticAlgorithmSchedule.Infrastructure.Concrete
             }
             return offsrping;
         }
-       
+
         protected override IEnumerable<Schedule> Mutation(IEnumerable<Schedule> offsrping)
         {
             List<Schedule> offspringAfterMutation = new List<Schedule>();
@@ -194,7 +190,7 @@ namespace GeneticAlgorithmSchedule.Infrastructure.Concrete
             }
             return offspringAfterMutation;
         }
-        
+
         protected override IEnumerable<Schedule> CreateNewPopulation(IEnumerable<Schedule> offsrping, IEnumerable<Schedule> oldPopulation)
         {
             var newPopulation = oldPopulation.ToArray();
@@ -221,7 +217,7 @@ namespace GeneticAlgorithmSchedule.Infrastructure.Concrete
                 sum = sum + ch.Fitness;
             }
 
-            Console.WriteLine("Średnia populacji: " + sum / newPopulation.Count() + " Najlepszy : " + GetBestChromosome(newPopulation).Fitness);
+            Console.WriteLine("Najlepszy : " + GetBestChromosome(newPopulation).Fitness + " Średnia populacji: " + sum / newPopulation.Count());
 
             return newPopulation;
         }
@@ -268,6 +264,6 @@ namespace GeneticAlgorithmSchedule.Infrastructure.Concrete
                 BestFlags[i] = false;
 
             CurrentBestSize = 0;
-        }      
+        }
     }
 }
