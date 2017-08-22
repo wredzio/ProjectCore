@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GeneticAlgorithmSchedule.Infrastructure.Abstract;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -28,16 +29,15 @@ namespace GeneticAlgorithmSchedule.Models
         }
     }
 
-    public class Schedule
+    public class Schedule : IChromosome
     {
         private Random _rand;
-
         public const int NUMBER_OF_SCORE = 6;
-        public float Fitness { get; set; }
-        public List<bool> Criteria { get; set; }
+        
         public List<CourseClass>[] Slots { get; set; }
         public Dictionary<CourseClass, int> Classes { get; set; }
         public School School { get; set; }
+        public float Fitness { get; set; }
 
         public Schedule(School school, bool createWithEmptySlots, Random rand)
         {
@@ -52,8 +52,6 @@ namespace GeneticAlgorithmSchedule.Models
             {
                 Slots[i] = new List<CourseClass>();
             }
-
-            Criteria = Extensions.RepeatedDefault<bool>(School.CourseClasses.Count() * NUMBER_OF_SCORE);
 
             if(!createWithEmptySlots)
             {
@@ -71,7 +69,6 @@ namespace GeneticAlgorithmSchedule.Models
             this._rand = schedule._rand;
             this.Slots = schedule.Slots;
             this.Classes = schedule.Classes;
-            this.Criteria = schedule.Criteria;
             this.Fitness = schedule.Fitness;
             this.School = schedule.School;
         }
@@ -128,36 +125,20 @@ namespace GeneticAlgorithmSchedule.Models
 
                 int duration = _class.Key.Duration;
 
-                bool isRoomOverlap = false;
-
-                for (int i = duration - 1; i >= 0; i--)
-                {
-                    if (Slots[position + i].Count > 1)
-                    {
-                        isRoomOverlap = true;
-                        break;
-                    }
-                }
-
+                bool isRoomOverlap = this.isRoomOverlap(position, duration);
                 if (!isRoomOverlap)
                     score++;
-
-                Criteria[criteria] = !isRoomOverlap;
 
                 CourseClass courseClass = _class.Key;
                 Room room = School.Rooms.FirstOrDefault(o => o.Id == roomId);
 
-                Criteria[criteria + 1] = room.NumberOfSeats >= courseClass.NumberOfSeats;
-
-                if (Criteria[criteria + 1])
+                if (room.NumberOfSeats >= courseClass.NumberOfSeats)
                     score++;
 
-                Criteria[criteria + 2] = !courseClass.RequiresLab || (courseClass.RequiresLab && room.Lab);
-
-                if (Criteria[criteria + 2])
+                if (!courseClass.RequiresLab || (courseClass.RequiresLab && room.Lab))
                     score++;
 
-                bool professorOverlap = false, studentsGroupOverlap = false;
+                bool teacherOverlap = false, studentsGroupOverlap = false;
 
                 for (int i = numberOfRooms, t = day * daySize + time; i > 0; i--, t += School.NumberOfHoursInDay)
                 {
@@ -169,54 +150,59 @@ namespace GeneticAlgorithmSchedule.Models
                         {
                             if (!courseClass.Equals(_courseClass))
                             {
-                                if (!professorOverlap && courseClass.ProfessorOverlaps(_courseClass))
+                                if (!teacherOverlap && courseClass.TeacherOverlaps(_courseClass))
                                 {
-                                    professorOverlap = true;
+                                    teacherOverlap = true;
                                 }
 
                                 if (!studentsGroupOverlap && courseClass.GroupsOverlap(_courseClass))
                                 {
                                     studentsGroupOverlap = true;
                                 }
-
-                                if (professorOverlap && studentsGroupOverlap)
-                                {
-
-                                }
                             }
                         }
                     }
                 }
 
-                if (!professorOverlap)
+                if (!teacherOverlap)
                     score++;
-
-                Criteria[criteria + 3] = !professorOverlap;
 
                 if (!studentsGroupOverlap)
                     score++;
 
-                Criteria[criteria + 4] = !studentsGroupOverlap;
-
-                bool isProfessorAvilable = true;
+                bool isTeacherAvilable = true;
                 for (int i = 0; i < duration; i++)
                 {
-                    if (!courseClass.Professor.Available.Any(o => o == time + day * School.NumberOfHoursInDay + i))
+                    if (!courseClass.Teacher.Available.Any(o => o == time + day * School.NumberOfHoursInDay + i))
                     {
-                        isProfessorAvilable = false;
+                        isTeacherAvilable = false;
                         break;
                     }
                 }
 
-                Criteria[criteria + 5] = isProfessorAvilable;
-
-                if (isProfessorAvilable)
+                if (isTeacherAvilable)
                     score++;
 
                 criteria = criteria + NUMBER_OF_SCORE;
             }
 
             Fitness = (float)score / (School.CourseClasses.Count() * NUMBER_OF_SCORE);
+        }
+
+        private bool isRoomOverlap(int position, int duration)
+        {
+            bool isRoomOverlap = false;
+
+            for (int i = duration - 1; i >= 0; i--)
+            {
+                if (Slots[position + i].Count > 1)
+                {
+                    isRoomOverlap = true;
+                    break;
+                }
+            }
+
+            return isRoomOverlap;
         }
     }
 }

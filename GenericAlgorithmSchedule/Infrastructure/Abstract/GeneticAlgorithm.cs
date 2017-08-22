@@ -4,7 +4,7 @@ using System.Text;
 
 namespace GeneticAlgorithmSchedule.Infrastructure.Abstract
 {
-    public abstract class GeneticAlgorithm<T>
+    public abstract class GeneticAlgorithm<T> where T : IChromosome
     {
         public int CurrentGeneration { get; protected set; }
 
@@ -20,7 +20,7 @@ namespace GeneticAlgorithmSchedule.Infrastructure.Abstract
         protected abstract IEnumerable<T> CreateNewPopulation(IEnumerable<T> offsrping, IEnumerable<T> oldPopulation);
         protected abstract T GetBestChromosome(IEnumerable<T> population);
 
-        public T Run()
+        public virtual T Run()
         {
             _population = InitializePopulation();
 

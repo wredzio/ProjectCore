@@ -9,7 +9,7 @@ namespace GeneticAlgorithmSchedule.Models
     {
         public int Id { get; set; }
         public IEnumerable<Room> Rooms { get; set; }
-        public IEnumerable<Professor> Professors { get; set; }
+        public IEnumerable<Teacher> Teachers { get; set; }
         public IEnumerable<Course> Courses { get; set; }
         public IEnumerable<CourseClass> CourseClasses { get; set; }
         public int NumberOfWorkDays { get; set; }

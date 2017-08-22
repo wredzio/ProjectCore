@@ -9,11 +9,11 @@ using GeneticAlgorithmSchedule.Models;
 namespace ProjectCore
 {
     //Temp class -> Create Repository and Services
-    public class Config2
+    public class Config
     {
         private const string XlsxContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
 
-        public static List<Professor> Professors { get; set; }
+        public static List<Teacher> Professors { get; set; }
         public static List<StudentsGroup> StudentsGroups { get; set; }
         public static List<Course> Courses { get; set; }
         public static List<CourseClass> CourseClasses { get; set; }
@@ -43,7 +43,7 @@ namespace ProjectCore
                 for (int row = 2; row <= rowCount; row++)
                 {
 
-                    Professor professor = Professors.FirstOrDefault(p => p.Id == Int32.Parse(worksheet.Cells[row, 2].Value.ToString()));
+                    Teacher professor = Professors.FirstOrDefault(p => p.Id == Int32.Parse(worksheet.Cells[row, 2].Value.ToString()));
                     Course course = Courses.FirstOrDefault(c => c.Id == Int32.Parse(worksheet.Cells[row, 3].Value.ToString()));
                     bool requiresLab = worksheet.Cells[row, 4].Value.ToString() == "1" ? true : false;
                     int duration = Int32.Parse(worksheet.Cells[row, 5].Value.ToString());
@@ -127,9 +127,9 @@ namespace ProjectCore
 
         private static void GetProfessors()
         {
-            Professors = new List<Professor>();
+            Professors = new List<Teacher>();
 
-            FileInfo fileInfo = new FileInfo("ProjectData/ProfessorData.xlsx");
+            FileInfo fileInfo = new FileInfo("ProjectData/TeacherData.xlsx");
             using (var package = new ExcelPackage(fileInfo))
             {
                 var worksheet = package.Workbook.Worksheets["Professor"];
@@ -138,7 +138,7 @@ namespace ProjectCore
 
                 for (int row = 2; row <= rowCount; row++)
                 {
-                    Professors.Add(new Professor()
+                    Professors.Add(new Teacher()
                     {
                         Id = Int32.Parse(worksheet.Cells[row, 1].Value.ToString()),
                         Name = worksheet.Cells[row, 2].Value.ToString(),
@@ -221,7 +221,7 @@ namespace ProjectCore
                     {
                         for (int i = duration - 1; i >= 0; i--)
                         {
-                            worksheet.Cells[(index * (school.NumberOfHoursInDay + 3) + 3) + time + i, day + 2].Value = _class.Key.Course.Name + " / " + string.Join(",", _class.Key.StudentsGroups.Select(o => o.Name)) + " " + _class.Key.Professor.Id + " " + _class.Key.Professor.Name;
+                            worksheet.Cells[(index * (school.NumberOfHoursInDay + 3) + 3) + time + i, day + 2].Value = _class.Key.Course.Name + " / " + string.Join(",", _class.Key.StudentsGroups.Select(o => o.Name)) + " " + _class.Key.Teacher.Id + " " + _class.Key.Teacher.Name;
                         }
                     }
                 }

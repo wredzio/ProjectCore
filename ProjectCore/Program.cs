@@ -9,14 +9,14 @@ namespace ProjectCore
     {
         static void Main(string[] args)
         {
-            Config2.Init();
+            Config.Init();
 
             School school = new School();
 
-            school.CourseClasses = Config2.CourseClasses;
-            school.Courses = Config2.Courses;
-            school.Professors = Config2.Professors;
-            school.Rooms = Config2.Rooms;
+            school.CourseClasses = Config.CourseClasses;
+            school.Courses = Config.Courses;
+            school.Teachers = Config.Professors;
+            school.Rooms = Config.Rooms;
             school.NumberOfHoursInDay = 12;
             school.NumberOfWorkDays = 5;
 
@@ -31,11 +31,11 @@ namespace ProjectCore
                 TrackBest = 300
             };
 
-            GeneticAlgorithm<Schedule> a = new GeneticAlgorithmSchedule.Infrastructure.Concrete.GeneticAlgorithmSchedule(algorithmConfig, school);
+            GeneticAlgorithm<Schedule> scheduleGeneticAlgorithm = new GeneticAlgorithmSchedule.Infrastructure.Concrete.GeneticAlgorithmSchedule(algorithmConfig, school);
 
-            Schedule result = a.Run();
+            Schedule result = scheduleGeneticAlgorithm.Run();
 
-            Config2.CreateSchedule(result, school);
+            Config.CreateSchedule(result, school);
 
             //Schedule prototype = new Schedule(2, 2, 90, 10);
 

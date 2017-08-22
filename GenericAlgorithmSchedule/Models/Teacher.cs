@@ -5,7 +5,7 @@ using System.Text;
 
 namespace GeneticAlgorithmSchedule.Models
 {
-    public class Professor
+    public class Teacher
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -17,9 +17,9 @@ namespace GeneticAlgorithmSchedule.Models
             if (obj == null || GetType() != obj.GetType())
                 return false;
 
-            Professor professor = (Professor)obj;
+            Teacher teacher = (Teacher)obj;
 
-            return professor.Id == this.Id;
+            return teacher.Id == this.Id;
         }
 
         public override int GetHashCode()

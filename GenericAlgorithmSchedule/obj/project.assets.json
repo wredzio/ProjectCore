@@ -1,5 +1,5 @@
 {
-  "version": 2,
+  "version": 3,
   "targets": {
     ".NETStandard,Version=v1.4": {
       "Microsoft.NETCore.Platforms/1.1.0": {
@@ -3707,15 +3707,27 @@
   },
   "project": {
     "version": "1.0.0",
+    "restoreSettings": {
+      "hideWarningsAndErrors": true
+    },
     "restore": {
-      "projectUniqueName": "C:\\Users\\Wredzio\\Documents\\Visual Studio 2017\\Projects\\ProjectCore\\GenericAlgorithmSchedule\\GeneticAlgorithmSchedule.csproj",
+      "projectUniqueName": "C:\\Users\\Wredzio\\documents\\visual studio 2017\\Projects\\ProjectCore\\GenericAlgorithmSchedule\\GeneticAlgorithmSchedule.csproj",
       "projectName": "GeneticAlgorithmSchedule",
-      "projectPath": "C:\\Users\\Wredzio\\Documents\\Visual Studio 2017\\Projects\\ProjectCore\\GenericAlgorithmSchedule\\GeneticAlgorithmSchedule.csproj",
-      "outputPath": "C:\\Users\\Wredzio\\Documents\\Visual Studio 2017\\Projects\\ProjectCore\\GenericAlgorithmSchedule\\obj\\",
+      "projectPath": "C:\\Users\\Wredzio\\documents\\visual studio 2017\\Projects\\ProjectCore\\GenericAlgorithmSchedule\\GeneticAlgorithmSchedule.csproj",
+      "packagesPath": "C:\\Users\\Wredzio\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Wredzio\\documents\\visual studio 2017\\Projects\\ProjectCore\\GenericAlgorithmSchedule\\obj\\",
       "projectStyle": "PackageReference",
+      "configFilePaths": [
+        "C:\\Users\\Wredzio\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+      ],
       "originalTargetFrameworks": [
         "netstandard1.4"
       ],
+      "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "https://api.nuget.org/v3/index.json": {}
+      },
       "frameworks": {
         "netstandard1.4": {
           "projectReferences": {}

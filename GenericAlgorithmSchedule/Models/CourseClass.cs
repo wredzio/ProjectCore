@@ -8,23 +8,23 @@ namespace GeneticAlgorithmSchedule.Models
 {
     public class CourseClass
     {
-        public Professor Professor { get; set; }
+        public Teacher Teacher { get; set; }
         public Course Course { get; set; }
         public List<StudentsGroup> StudentsGroups { get; set; }
         public int NumberOfSeats { get; set; }
         public bool RequiresLab { get; set; }
         public int Duration { get; set; }
 
-        public CourseClass(Professor professtor, Course course, List<StudentsGroup> studentsGroups,
+        public CourseClass(Teacher teacher, Course course, List<StudentsGroup> studentsGroups,
                             bool requiresLab, int duration)
         {
-            Professor = professtor;
+            Teacher = teacher;
             Course = course;
             RequiresLab = requiresLab;
             Duration = duration;
             StudentsGroups = studentsGroups;
 
-            Professor.CourseClasses.Add(this);
+            Teacher.CourseClasses.Add(this);
 
             foreach (StudentsGroup studentGroup in StudentsGroups)
             {
@@ -43,9 +43,9 @@ namespace GeneticAlgorithmSchedule.Models
             return false;
         }
 
-        public bool ProfessorOverlaps(CourseClass courseClass)
+        public bool TeacherOverlaps(CourseClass courseClass)
         {
-            return Professor.Id == courseClass.Professor.Id;
+            return Teacher.Id == courseClass.Teacher.Id;
         }
     }
 }

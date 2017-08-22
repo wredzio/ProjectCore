@@ -1,5 +1,5 @@
 {
-  "version": 2,
+  "version": 3,
   "targets": {
     ".NETCoreApp,Version=v1.1": {
       "CoreCompat.System.Drawing/1.0.0-beta006": {
@@ -2477,6 +2477,12 @@
         "framework": ".NETStandard,Version=v1.4",
         "dependencies": {
           "NETStandard.Library": "1.6.1"
+        },
+        "compile": {
+          "bin/placeholder/GeneticAlgorithmSchedule.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/GeneticAlgorithmSchedule.dll": {}
         }
       }
     }
@@ -7570,20 +7576,32 @@
   },
   "project": {
     "version": "1.0.0",
+    "restoreSettings": {
+      "hideWarningsAndErrors": true
+    },
     "restore": {
-      "projectUniqueName": "C:\\Users\\Wredzio\\Documents\\Visual Studio 2017\\Projects\\ProjectCore\\ProjectCore\\ProjectCore.csproj",
+      "projectUniqueName": "C:\\Users\\Wredzio\\documents\\visual studio 2017\\Projects\\ProjectCore\\ProjectCore\\ProjectCore.csproj",
       "projectName": "ProjectCore",
-      "projectPath": "C:\\Users\\Wredzio\\Documents\\Visual Studio 2017\\Projects\\ProjectCore\\ProjectCore\\ProjectCore.csproj",
-      "outputPath": "C:\\Users\\Wredzio\\Documents\\Visual Studio 2017\\Projects\\ProjectCore\\ProjectCore\\obj\\",
+      "projectPath": "C:\\Users\\Wredzio\\documents\\visual studio 2017\\Projects\\ProjectCore\\ProjectCore\\ProjectCore.csproj",
+      "packagesPath": "C:\\Users\\Wredzio\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Wredzio\\documents\\visual studio 2017\\Projects\\ProjectCore\\ProjectCore\\obj\\",
       "projectStyle": "PackageReference",
+      "configFilePaths": [
+        "C:\\Users\\Wredzio\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+      ],
       "originalTargetFrameworks": [
         "netcoreapp1.1"
       ],
+      "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "https://api.nuget.org/v3/index.json": {}
+      },
       "frameworks": {
         "netcoreapp1.1": {
           "projectReferences": {
-            "C:\\Users\\Wredzio\\Documents\\Visual Studio 2017\\Projects\\ProjectCore\\GenericAlgorithmSchedule\\GeneticAlgorithmSchedule.csproj": {
-              "projectPath": "C:\\Users\\Wredzio\\Documents\\Visual Studio 2017\\Projects\\ProjectCore\\GenericAlgorithmSchedule\\GeneticAlgorithmSchedule.csproj"
+            "C:\\Users\\Wredzio\\documents\\visual studio 2017\\Projects\\ProjectCore\\GenericAlgorithmSchedule\\GeneticAlgorithmSchedule.csproj": {
+              "projectPath": "C:\\Users\\Wredzio\\documents\\visual studio 2017\\Projects\\ProjectCore\\GenericAlgorithmSchedule\\GeneticAlgorithmSchedule.csproj"
             }
           }
         }
