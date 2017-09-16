@@ -1,7 +1,0 @@
-C:\Users\Wredzio\documents\visual studio 2017\Projects\ProjectCore\GenericAlgorithmSchedule\bin\Release\netstandard1.4\GeneticAlgorithmSchedule.deps.json
-C:\Users\Wredzio\documents\visual studio 2017\Projects\ProjectCore\GenericAlgorithmSchedule\bin\Release\netstandard1.4\GeneticAlgorithmSchedule.dll
-C:\Users\Wredzio\documents\visual studio 2017\Projects\ProjectCore\GenericAlgorithmSchedule\bin\Release\netstandard1.4\GeneticAlgorithmSchedule.pdb
-C:\Users\Wredzio\documents\visual studio 2017\Projects\ProjectCore\GenericAlgorithmSchedule\obj\Release\netstandard1.4\GeneticAlgorithmSchedule.csproj.CoreCompileInputs.cache
-C:\Users\Wredzio\documents\visual studio 2017\Projects\ProjectCore\GenericAlgorithmSchedule\obj\Release\netstandard1.4\GeneticAlgorithmSchedule.AssemblyInfo.cs
-C:\Users\Wredzio\documents\visual studio 2017\Projects\ProjectCore\GenericAlgorithmSchedule\obj\Release\netstandard1.4\GeneticAlgorithmSchedule.dll
-C:\Users\Wredzio\documents\visual studio 2017\Projects\ProjectCore\GenericAlgorithmSchedule\obj\Release\netstandard1.4\GeneticAlgorithmSchedule.pdb
