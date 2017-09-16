@@ -4,21 +4,22 @@ using System.Text;
 using GeneticAlgorithmSchedule.Models;
 using System.Linq;
 using GeneticAlgorithmSchedule.Infrastructure.Abstract;
+using GeneticAlgorithmSchedule.Utils;
 
 namespace GeneticAlgorithmSchedule.Infrastructure.Concrete
 {
     public class GeneticAlgorithmScheduleWithWeakest : GeneticAlgorithmSchedule
     {
         private List<Schedule> _worstChromosomes;
-        private AlgorithmWithWeakestConfig _algorithmExtendedConfig;
-        private int replaceByGeneration;
+        private readonly AlgorithmWithWeakestConfig _algorithmExtendedConfig;
+        private int _replaceByGeneration;
 
         public GeneticAlgorithmScheduleWithWeakest(AlgorithmWithWeakestConfig algorithmExtendedConfig, School school)
             : base(algorithmExtendedConfig, school)
         {
             _worstChromosomes = new List<Schedule>();
             _algorithmExtendedConfig = algorithmExtendedConfig;
-            replaceByGeneration = _algorithmExtendedConfig.ReplaceByGeneration;
+            _replaceByGeneration = _algorithmExtendedConfig.ReplaceByGeneration;
         }
 
         protected override IEnumerable<Schedule> InitializePopulation()
@@ -97,9 +98,9 @@ namespace GeneticAlgorithmSchedule.Infrastructure.Concrete
                 }
                 child.CalculateFitness();
 
-                if (child.Fitness < _worstChromosomes.FirstOrDefault().Fitness)
+                if (_worstChromosomes != null && child.Fitness < _worstChromosomes.FirstOrDefault().Fitness)
                 {
-                    replaceByGeneration--;
+                    _replaceByGeneration--;
                     _worstChromosomes.Add(child);
                     continue;
                 }
@@ -114,7 +115,7 @@ namespace GeneticAlgorithmSchedule.Infrastructure.Concrete
             var newPopulation = oldPopulation.ToArray();
             offsrping = offsrping.ToArray();
 
-            for (int j = 0; j < replaceByGeneration; j++)
+            for (int j = 0; j < _replaceByGeneration; j++)
             {
                 int ci;
 
@@ -145,7 +146,7 @@ namespace GeneticAlgorithmSchedule.Infrastructure.Concrete
 
             AddToWorst(newPopulation);
 
-            replaceByGeneration = _algorithmExtendedConfig.ReplaceByGeneration;
+            _replaceByGeneration = _algorithmExtendedConfig.ReplaceByGeneration;
 
             return newPopulation;
         }

@@ -238,15 +238,13 @@ namespace ProjectCore
                     int position = _class.Value;
                     int day = position / daySize;
                     int time = position % daySize;
-                    int roomId = time / school.NumberOfHoursInDay;
-                    if (roomId == 0)
-                        roomId = numberOfRooms;
+                    int roomPosition = time / school.NumberOfHoursInDay;
 
                     time = time % school.NumberOfHoursInDay;
 
                     int duration = _class.Key.Duration;
 
-                    if (roomId == value.Id)
+                    if (roomPosition == index)
                     {
                         for (int i = duration - 1; i >= 0; i--)
                         {

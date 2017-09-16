@@ -6,29 +6,6 @@ using System.Text;
 
 namespace GeneticAlgorithmSchedule.Models
 {
-    public static class Extensions
-    {
-        public static void RenameKey<TKey, TValue>(this IDictionary<TKey, TValue> dic,
-                                                      TKey fromKey, TKey toKey)
-        {
-            TValue value = dic[fromKey];
-            dic.Remove(fromKey);
-            dic[toKey] = value;
-        }
-
-        public static List<T> RepeatedDefault<T>(int count)
-        {
-            return Repeated(default(T), count);
-        }
-
-        public static List<T> Repeated<T>(T value, int count)
-        {
-            List<T> ret = new List<T>(count);
-            ret.AddRange(Enumerable.Repeat(value, count));
-            return ret;
-        }
-    }
-
     public class Schedule : IChromosome
     {
         public static bool WithSoft { get; set; }
@@ -118,9 +95,7 @@ namespace GeneticAlgorithmSchedule.Models
 
                 int day = position / daySize;
                 int time = position % daySize;
-                int roomId = time / School.NumberOfHoursInDay;
-                if (roomId == 0)
-                    roomId = numberOfRooms;
+                int roomPosition = time / School.NumberOfHoursInDay;
 
                 time = time % School.NumberOfHoursInDay;
 
@@ -131,12 +106,12 @@ namespace GeneticAlgorithmSchedule.Models
                     score++;
 
                 CourseClass courseClass = _class.Key;
-                Room room = School.Rooms.FirstOrDefault(o => o.Id == roomId);
+                Room room = School.Rooms.ElementAt(roomPosition);
 
                 if (room != null && room.NumberOfSeats >= courseClass.NumberOfSeats)
                     score++;
 
-                if (!courseClass.RequiresLab || (courseClass.RequiresLab && room.Lab))
+                if (room != null && (!courseClass.RequiresLab || (courseClass.RequiresLab && room.Lab)))
                     score++;
 
                 bool teacherOverlap = false, studentsGroupOverlap = false;
