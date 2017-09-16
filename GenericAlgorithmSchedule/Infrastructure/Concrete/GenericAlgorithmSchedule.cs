@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
+using GeneticAlgorithmSchedule.Infrastructure.Selection;
 
 namespace GeneticAlgorithmSchedule.Infrastructure.Concrete
 {
@@ -14,15 +15,15 @@ namespace GeneticAlgorithmSchedule.Infrastructure.Concrete
         public int[] IndexesOfBestChromosomes { get; set; }
         public int CurrentBestSize { get; set; }
 
-        private AlgorithmConfig _algorithmConfig;
-        private School _school;
-        private Random _rand;
+        private readonly AlgorithmConfig _algorithmConfig;
+        protected School School;
+        protected Random Rand;
 
         public GeneticAlgorithmSchedule(AlgorithmConfig algorithmConfig, School school)
         {
             _algorithmConfig = algorithmConfig;
-            _school = school;
-            _rand = new Random();
+            School = school;
+            Rand = new Random();
 
             BestFlags = Extensions.RepeatedDefault<bool>(_algorithmConfig.NumberOfChromosomes);
             IndexesOfBestChromosomes = new int[_algorithmConfig.TrackBest];
@@ -41,7 +42,7 @@ namespace GeneticAlgorithmSchedule.Infrastructure.Concrete
 
             for (int i = 0; i < _algorithmConfig.NumberOfChromosomes; i++)
             {
-                var schedule = new Schedule(_school, false, _rand);
+                var schedule = new Schedule(School, false, Rand);
 
                 population.Add(schedule);
                 AddToBest(i, population);
@@ -51,21 +52,21 @@ namespace GeneticAlgorithmSchedule.Infrastructure.Concrete
 
         protected override bool IsEvaluationConditionSufficient(IEnumerable<Schedule> population)
         {
-            return GetBestChromosome(population).Fitness >= 1;
+            if (CurrentGeneration > 2500)
+                return true;
+
+
+            return GetBestChromosome(population).Fitness >= 1 
+                && (_algorithmConfig.IsSoftOn 
+                        ? GetBestChromosome(population).FitnessSoft >= _algorithmConfig.SoftConditionSufficient : true);
         }
 
         protected override IEnumerable<Parents<Schedule>> SelectParents(IEnumerable<Schedule> population)
         {
-            List<Parents<Schedule>> paterns = new List<Parents<Schedule>>();
-            for (int i = 0; i < _algorithmConfig.ReplaceByGeneration; i++)
-            {
-                paterns.Add(new Parents<Schedule>()
-                {
-                    FirstParent = population.ElementAt(_rand.Next() % population.Count()),
-                    SecondParent = population.ElementAt(_rand.Next() % population.Count())
-                });
-            }
-            return paterns;
+            SelectionFactory selectionFactory = new SelectionFactory(_algorithmConfig.ReplaceByGeneration, Rand);
+            GeneticSelection<Schedule> geneticSelection = selectionFactory.CreateSelector(_algorithmConfig.SelectionType);
+            
+            return geneticSelection.SelectParents(population);
         }
 
         protected override IEnumerable<Schedule> Crossover(IEnumerable<Parents<Schedule>> parentsList)
@@ -76,15 +77,15 @@ namespace GeneticAlgorithmSchedule.Infrastructure.Concrete
 
             foreach (Parents<Schedule> parents in parentsList)
             {
-                if (_rand.Next() % 100 > _algorithmConfig.CrosoverProbability)
+                if (Rand.Next() % 100 > _algorithmConfig.CrosoverProbability)
                 {
-                    offsrping.Add(new Schedule(_school, false, _rand));
+                    offsrping.Add(new Schedule(School, false, Rand));
                     continue;
                 }
 
-                Schedule child = new Schedule(_school, true, _rand);
+                Schedule child = new Schedule(School, true, Rand);
 
-                int size = _school.CourseClasses.Count();
+                int size = School.CourseClasses.Count();
 
                 List<bool> pointsToCrossover = Extensions.RepeatedDefault<bool>(size);
 
@@ -92,7 +93,7 @@ namespace GeneticAlgorithmSchedule.Infrastructure.Concrete
                 {
                     while (true)
                     {
-                        int crossoverPoint = _rand.Next() % size;
+                        int crossoverPoint = Rand.Next() % size;
                         if (!pointsToCrossover[crossoverPoint])
                         {
                             pointsToCrossover[crossoverPoint] = true;
@@ -101,7 +102,7 @@ namespace GeneticAlgorithmSchedule.Infrastructure.Concrete
                     }
                 }
 
-                bool first = _rand.Next() % 2 == 0;
+                bool first = Rand.Next() % 2 == 0;
                 for (int i = 0; i < size; i++)
                 {
                     if (first)
@@ -146,7 +147,7 @@ namespace GeneticAlgorithmSchedule.Infrastructure.Concrete
             foreach (Schedule child in offsrping)
             {
 
-                if (_rand.Next() % 100 > _algorithmConfig.MutationProbability)
+                if (Rand.Next() % 100 > _algorithmConfig.MutationProbability)
                 {
                     offspringAfterMutation.Add(child);
                     continue;
@@ -157,15 +158,15 @@ namespace GeneticAlgorithmSchedule.Infrastructure.Concrete
 
                 for (int i = _algorithmConfig.MutationSize; i > 0; i--)
                 {
-                    int randomClassIdToMove = _rand.Next() % numberOfClasses;
+                    int randomClassIdToMove = Rand.Next() % numberOfClasses;
                     KeyValuePair<CourseClass, int> courseClassToMutation = child.Classes.ToList<KeyValuePair<CourseClass, int>>()[randomClassIdToMove];
 
-                    int numberOfRooms = _school.Rooms.Count();
+                    int numberOfRooms = School.Rooms.Count();
                     int duration = courseClassToMutation.Key.Duration;
-                    int day = _rand.Next() % _school.NumberOfWorkDays;
-                    int room = _rand.Next() % numberOfRooms;
-                    int time = _rand.Next() % (_school.NumberOfHoursInDay + 1 - duration);
-                    int position = day * numberOfRooms * _school.NumberOfWorkDays + room * _school.NumberOfHoursInDay + time;
+                    int day = Rand.Next() % School.NumberOfWorkDays;
+                    int room = Rand.Next() % numberOfRooms;
+                    int time = Rand.Next() % (School.NumberOfHoursInDay + 1 - duration);
+                    int position = day * numberOfRooms * School.NumberOfWorkDays + room * School.NumberOfHoursInDay + time;
 
                     for (int j = duration - 1; j >= 0; j--)
                     {
@@ -202,7 +203,7 @@ namespace GeneticAlgorithmSchedule.Infrastructure.Concrete
 
                 do
                 {
-                    ci = _rand.Next() % oldPopulation.Count();
+                    ci = Rand.Next() % _algorithmConfig.NumberOfChromosomes;
 
                 } while (IsInBest(ci));
 
@@ -219,21 +220,26 @@ namespace GeneticAlgorithmSchedule.Infrastructure.Concrete
 
             Console.WriteLine("Najlepszy : " + GetBestChromosome(newPopulation).Fitness + " Średnia populacji: " + sum / newPopulation.Count());
 
+            FitnessA.Add(sum / newPopulation.Count());
+            FitnessBest.Add(GetBestChromosome(newPopulation).Fitness);
+            FitnessWorst.Add(newPopulation.OrderBy(o => o.Fitness).FirstOrDefault().Fitness);
+
             return newPopulation;
         }
 
-        private bool IsInBest(int chromosomeIndex)
+        protected bool IsInBest(int chromosomeIndex)
         {
             return BestFlags[chromosomeIndex];
         }
 
-        private void AddToBest(int chromosomeIndex, IEnumerable<Schedule> population)
+        protected void AddToBest(int chromosomeIndex, IEnumerable<Schedule> population)
         {
-            Schedule[] Chromosomes = population.ToArray();
+            Schedule[] chromosomes = population.ToArray();
 
             if ((CurrentBestSize == IndexesOfBestChromosomes.Length &&
-                Chromosomes[IndexesOfBestChromosomes[CurrentBestSize - 1]].Fitness >=
-                Chromosomes[chromosomeIndex].Fitness) || BestFlags[chromosomeIndex])
+                chromosomes[IndexesOfBestChromosomes[CurrentBestSize - 1]].Fitness >=
+                chromosomes[chromosomeIndex].Fitness) && (!_algorithmConfig.IsSoftOn || chromosomes[IndexesOfBestChromosomes[CurrentBestSize - 1]].FitnessSoft >=
+                                                          chromosomes[chromosomeIndex].FitnessSoft) || BestFlags[chromosomeIndex])
                 return;
 
             int i = CurrentBestSize;
@@ -241,8 +247,7 @@ namespace GeneticAlgorithmSchedule.Infrastructure.Concrete
             {
                 if (i < IndexesOfBestChromosomes.Length)
                 {
-                    if (Chromosomes[IndexesOfBestChromosomes[i - 1]].Fitness >
-                        Chromosomes[chromosomeIndex].Fitness)
+                    if (chromosomes[IndexesOfBestChromosomes[i - 1]].Fitness > chromosomes[chromosomeIndex].Fitness || chromosomes[IndexesOfBestChromosomes[i - 1]].FitnessSoft > chromosomes[chromosomeIndex].FitnessSoft)
                         break;
 
                     IndexesOfBestChromosomes[i] = IndexesOfBestChromosomes[i - 1];

@@ -31,19 +31,27 @@ namespace GeneticAlgorithmSchedule.Models
 
     public class Schedule : IChromosome
     {
-        private Random _rand;
-        public const int NUMBER_OF_SCORE = 6;
-        
+        public static bool WithSoft { get; set; }
+
+        private readonly Random _rand;
+        public const int NumberOfScore = 6;
+        public const int NumberOfSoftScore = 2;
+
         public List<CourseClass>[] Slots { get; set; }
         public Dictionary<CourseClass, int> Classes { get; set; }
         public School School { get; set; }
         public float Fitness { get; set; }
+        public float FitnessSoft { get; set; }
+        protected string Identity { get; set; }
 
         public Schedule(School school, bool createWithEmptySlots, Random rand)
         {
             this.School = school;
             this._rand = rand;
             this.Fitness = 0;
+
+            if (!WithSoft)
+                this.FitnessSoft = 1;
 
             Classes = new Dictionary<CourseClass, int>();
 
@@ -53,15 +61,10 @@ namespace GeneticAlgorithmSchedule.Models
                 Slots[i] = new List<CourseClass>();
             }
 
-            if(!createWithEmptySlots)
+            if (!createWithEmptySlots)
             {
                 MakeNew();
             }
-            else
-            {
-
-            }
-
         }
 
         private Schedule(Schedule schedule)
@@ -101,15 +104,13 @@ namespace GeneticAlgorithmSchedule.Models
             this.CalculateFitness();
         }
 
-        public void CalculateFitness()
+        public virtual void CalculateFitness()
         {
             int score = 0;
+            int softScore = 0;
 
             int numberOfRooms = School.Rooms.Count();
             int daySize = School.NumberOfHoursInDay * numberOfRooms;
-
-            int criteria = 0;
-
 
             foreach (var _class in Classes)
             {
@@ -125,14 +126,14 @@ namespace GeneticAlgorithmSchedule.Models
 
                 int duration = _class.Key.Duration;
 
-                bool isRoomOverlap = this.isRoomOverlap(position, duration);
+                bool isRoomOverlap = this.IsRoomOverlap(position, duration);
                 if (!isRoomOverlap)
                     score++;
 
                 CourseClass courseClass = _class.Key;
                 Room room = School.Rooms.FirstOrDefault(o => o.Id == roomId);
 
-                if (room.NumberOfSeats >= courseClass.NumberOfSeats)
+                if (room != null && room.NumberOfSeats >= courseClass.NumberOfSeats)
                     score++;
 
                 if (!courseClass.RequiresLab || (courseClass.RequiresLab && room.Lab))
@@ -173,7 +174,7 @@ namespace GeneticAlgorithmSchedule.Models
                 bool isTeacherAvilable = true;
                 for (int i = 0; i < duration; i++)
                 {
-                    if (!courseClass.Teacher.Available.Any(o => o == time + day * School.NumberOfHoursInDay + i))
+                    if (courseClass.Teacher.Available.All(o => o != time + day * School.NumberOfHoursInDay + i))
                     {
                         isTeacherAvilable = false;
                         break;
@@ -183,13 +184,47 @@ namespace GeneticAlgorithmSchedule.Models
                 if (isTeacherAvilable)
                     score++;
 
-                criteria = criteria + NUMBER_OF_SCORE;
+                if (WithSoft)
+                {
+                    if (time < School.NumberOfHoursInDay / 2)
+                    {
+                        softScore += 2;
+                    }
+                }
             }
 
-            Fitness = (float)score / (School.CourseClasses.Count() * NUMBER_OF_SCORE);
+
+            SetIdentity();
+
+            Fitness = (float)score / (School.CourseClasses.Count() * NumberOfScore);
+            FitnessSoft = (float)softScore / (School.CourseClasses.Count() * NumberOfSoftScore);
         }
 
-        private bool isRoomOverlap(int position, int duration)
+        protected void SetIdentity()
+        {
+            StringBuilder identityBuilder = new StringBuilder();
+
+            foreach (var Class in Classes)
+            {
+                identityBuilder.Append(Class.Value + Class.Key.Course.Id);
+            }
+
+            Identity = identityBuilder.ToString();
+        }
+
+        public override bool Equals(Object obj)
+        {
+            if (obj == null || GetType() != obj.GetType())
+                return false;
+
+            Schedule schedule = (Schedule)obj;
+
+            return schedule.Identity == this.Identity;
+        }
+
+        public override int GetHashCode() => base.GetHashCode();
+
+        protected bool IsRoomOverlap(int position, int duration)
         {
             bool isRoomOverlap = false;
 

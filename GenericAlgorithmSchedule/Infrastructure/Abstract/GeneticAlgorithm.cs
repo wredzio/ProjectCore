@@ -7,6 +7,9 @@ namespace GeneticAlgorithmSchedule.Infrastructure.Abstract
     public abstract class GeneticAlgorithm<T> where T : IChromosome
     {
         public int CurrentGeneration { get; protected set; }
+        public List<float> FitnessA { get; set; }
+        public List<float> FitnessBest { get; set; }
+        public List<float> FitnessWorst { get; set; }
 
         private IEnumerable<T> _population;
         private IEnumerable<Parents<T>> _parentsList;
@@ -22,6 +25,10 @@ namespace GeneticAlgorithmSchedule.Infrastructure.Abstract
 
         public virtual T Run()
         {
+            FitnessA = new List<float>();
+            FitnessBest = new List<float>();
+            FitnessWorst = new List<float>();
+
             _population = InitializePopulation();
 
             CurrentGeneration = 0;

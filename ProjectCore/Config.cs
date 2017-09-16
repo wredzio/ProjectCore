@@ -86,7 +86,7 @@ namespace ProjectCore
             {
                 var worksheet = package.Workbook.Worksheets["Room"];
                 int rowCount = worksheet.Dimension.Rows;
-                int ColCount = worksheet.Dimension.Columns;
+                int colCount = worksheet.Dimension.Columns;
 
                 for (int row = 2; row <= rowCount; row++)
                 {
@@ -110,7 +110,7 @@ namespace ProjectCore
             {
                 var worksheet = package.Workbook.Worksheets["Group"];
                 int rowCount = worksheet.Dimension.Rows;
-                int ColCount = worksheet.Dimension.Columns;
+                int colCount = worksheet.Dimension.Columns;
 
                 for (int row = 2; row <= rowCount; row++)
                 {
@@ -162,15 +162,44 @@ namespace ProjectCore
             }
         }
 
+        public static void AddResult(List<float> best, List<float> forst, List<float> a)
+        {
+            CreateResults(best, forst, a);
+            
+        }
+
+        private static ExcelPackage CreateResults(List<float> best, List<float> forst, List<float> a)
+        {
+            FileInfo fileInfo = new FileInfo("ProjectData/ResultExcel.xlsx");
+            using (var package = new ExcelPackage(fileInfo))
+            {
+
+                for (int i = 0; i < a.Count; i++)
+                {
+
+                    var worksheet = package.Workbook.Worksheets["Time5"];
+
+                    worksheet.Cells[i + 1, 1].Value = best[i];
+                    worksheet.Cells[i + 1, 2].Value = forst[i];
+                    worksheet.Cells[i + 1, 3].Value = a[i];
+
+                }
+                package.Save();
+
+                return package;
+            }
+        }
+
+
         public static void CreateSchedule(Schedule bestChromosome, School school)
         {
-            using (var package = createExcelPackage(bestChromosome, school))
+            using (var package = CreateExcelPackage(bestChromosome, school))
             {
                 package.SaveAs(new FileInfo("ProjectData/OutputExcel.xlsx"));
             }
         }
 
-        private static ExcelPackage createExcelPackage(Schedule bestChromosome, School school)
+        private static ExcelPackage CreateExcelPackage(Schedule bestChromosome, School school)
         {
             var package = new ExcelPackage();
             package.Workbook.Properties.Title = "Plan";
@@ -182,7 +211,7 @@ namespace ProjectCore
             var worksheet = package.Workbook.Worksheets.Add("Schedule");
 
 
-            foreach (var item in Rooms.Select((Value, Index) => new { Index, Value }))
+            foreach (var item in Rooms.Select((value, index) => new { Index = index, Value = value }))
             {
                 var value = item.Value;
                 var index = item.Index;
