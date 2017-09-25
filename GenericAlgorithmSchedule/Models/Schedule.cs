@@ -149,7 +149,7 @@ namespace GeneticAlgorithmSchedule.Models
                 bool isTeacherAvilable = true;
                 for (int i = 0; i < duration; i++)
                 {
-                    if (courseClass.Teacher.Available.All(o => o != time + day * School.NumberOfHoursInDay + i))
+                    if (courseClass.Teacher.Availables.All(o => o.Id != time + day * School.NumberOfHoursInDay + i))
                     {
                         isTeacherAvilable = false;
                         break;

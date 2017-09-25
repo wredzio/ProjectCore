@@ -108,7 +108,7 @@ namespace ProjectCore
                     ass.Add(i, new Dictionary<CourseClass, int>());
                 }
 
-                foreach (var groupClasses in s.Classes.Where(o => o.Key.StudentsGroups.Any(sg => sg.Equals(group))))
+                foreach (var groupClasses in s.Classes.Where(o => o.Key.StudentGroupCourseClasses.Any(sg => sg.StudentsGroup.Equals(group))))
                 {
                     ass.FirstOrDefault(o => o.Key == groupClasses.Value / daySize).Value.Add(groupClasses.Key, groupClasses.Value);
                 }

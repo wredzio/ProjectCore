@@ -5,9 +5,8 @@ using System.Text;
 
 namespace GeneticAlgorithmSchedule.Models
 {
-    public class School
+    public class School : BaseEntity
     {
-        public int Id { get; set; }
         public IEnumerable<Room> Rooms { get; set; }
         public IEnumerable<Teacher> Teachers { get; set; }
         public IEnumerable<Course> Courses { get; set; }

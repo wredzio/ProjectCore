@@ -6,9 +6,8 @@ using System.Text;
 
 namespace GeneticAlgorithmSchedule.Models
 {
-    public class AlgorithmConfig
+    public class AlgorithmConfig : BaseEntity
     {
-        public int Id { get; set; }
         public int NumberOfCrossoverPoints { get; set; }
         public int MutationSize { get; set; }
         public int CrosoverProbability { get; set; }

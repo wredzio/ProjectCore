@@ -49,7 +49,7 @@ namespace ProjectCore
                     int duration = Int32.Parse(worksheet.Cells[row, 5].Value.ToString());
                     var studentsGroup = StudentsGroups.Where(s => s.Id == Int32.Parse(worksheet.Cells[row, 6].Value.ToString())).ToList();
 
-                    CourseClasses.Add(new CourseClass(professor, course, studentsGroup, requiresLab, duration));
+                   // CourseClasses.Add(new CourseClass(professor, course, studentsGroup, requiresLab, duration));
 
                 }
             }
@@ -119,7 +119,7 @@ namespace ProjectCore
                         Id = Int32.Parse(worksheet.Cells[row, 1].Value.ToString()),
                         Name = worksheet.Cells[row, 2].Value.ToString(),
                         NumberOfStudents = Int32.Parse(worksheet.Cells[row, 3].Value.ToString()),
-                        CourseClasses = new List<CourseClass>()
+                        StudentGroupCourseClasses = new List<StudentGroupCourseClass>()
                     });
                 }
             }
@@ -143,7 +143,7 @@ namespace ProjectCore
                         Id = Int32.Parse(worksheet.Cells[row, 1].Value.ToString()),
                         Name = worksheet.Cells[row, 2].Value.ToString(),
                         CourseClasses = new List<CourseClass>(),
-                        Available = new List<int>()
+                        Availables = new List<Available>()
                     });
                 }
 
@@ -156,7 +156,7 @@ namespace ProjectCore
                     int professorId = Int32.Parse(professorAvailable.Cells[row, 1].Value.ToString());
                     int availableIndex = Int32.Parse(professorAvailable.Cells[row, 2].Value.ToString());
 
-                    Professors.FirstOrDefault(p => p.Id == professorId).Available.Add(availableIndex);
+                   // Professors.FirstOrDefault(p => p.Id == professorId).Availables.Add(availableIndex);
                 }
 
             }
@@ -248,7 +248,7 @@ namespace ProjectCore
                     {
                         for (int i = duration - 1; i >= 0; i--)
                         {
-                            worksheet.Cells[(index * (school.NumberOfHoursInDay + 3) + 3) + time + i, day + 2].Value = _class.Key.Course.Name + " / " + string.Join(",", _class.Key.StudentsGroups.Select(o => o.Name)) + " " + _class.Key.Teacher.Id + " " + _class.Key.Teacher.Name;
+                            //worksheet.Cells[(index * (school.NumberOfHoursInDay + 3) + 3) + time + i, day + 2].Value = _class.Key.Course.Name + " / " + string.Join(",", _class.Key.StudentGroupCourseClasses.StudentsGroups.Select(o => o.Name)) + " " + _class.Key.Teacher.Id + " " + _class.Key.Teacher.Name;
                         }
                     }
                 }
