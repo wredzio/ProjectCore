@@ -1,11 +1,21 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.13
+VisualStudioVersion = 15.0.26730.16
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectCore", "ProjectCore\ProjectCore.csproj", "{1164B195-E6FC-476D-9E98-80CEE96C8655}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectCore", "ProjectCore\ProjectCore.csproj", "{1164B195-E6FC-476D-9E98-80CEE96C8655}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeneticAlgorithmSchedule", "GenericAlgorithmSchedule\GeneticAlgorithmSchedule.csproj", "{D1D31BB1-2594-4E18-8027-3D3F6F19617D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GeneticAlgorithmSchedule", "GenericAlgorithmSchedule\GeneticAlgorithmSchedule.csproj", "{D1D31BB1-2594-4E18-8027-3D3F6F19617D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GeneticAlgorithmSchedule.Web", "GeneticAlgorithmSchedule.Web\GeneticAlgorithmSchedule.Web.csproj", "{BBD81430-F493-4BD9-A385-65D1B3ED52CD}"
+	ProjectSection(ProjectDependencies) = postProject
+		{3DB75DBC-0F7E-401F-B470-1E1957F18BD8} = {3DB75DBC-0F7E-401F-B470-1E1957F18BD8}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeneticAlgorithmSchedule.Database", "GeneticAlgorithmSchedule.Database\GeneticAlgorithmSchedule.Database.csproj", "{3DB75DBC-0F7E-401F-B470-1E1957F18BD8}"
+	ProjectSection(ProjectDependencies) = postProject
+		{D1D31BB1-2594-4E18-8027-3D3F6F19617D} = {D1D31BB1-2594-4E18-8027-3D3F6F19617D}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,8 +31,19 @@ Global
 		{D1D31BB1-2594-4E18-8027-3D3F6F19617D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D1D31BB1-2594-4E18-8027-3D3F6F19617D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D1D31BB1-2594-4E18-8027-3D3F6F19617D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BBD81430-F493-4BD9-A385-65D1B3ED52CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BBD81430-F493-4BD9-A385-65D1B3ED52CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BBD81430-F493-4BD9-A385-65D1B3ED52CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BBD81430-F493-4BD9-A385-65D1B3ED52CD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3DB75DBC-0F7E-401F-B470-1E1957F18BD8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3DB75DBC-0F7E-401F-B470-1E1957F18BD8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3DB75DBC-0F7E-401F-B470-1E1957F18BD8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3DB75DBC-0F7E-401F-B470-1E1957F18BD8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F441F7D5-567E-4FC4-B114-4648AB4B5E9D}
 	EndGlobalSection
 EndGlobal
