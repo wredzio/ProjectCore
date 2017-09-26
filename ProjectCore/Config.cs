@@ -119,7 +119,6 @@ namespace ProjectCore
                         Id = Int32.Parse(worksheet.Cells[row, 1].Value.ToString()),
                         Name = worksheet.Cells[row, 2].Value.ToString(),
                         NumberOfStudents = Int32.Parse(worksheet.Cells[row, 3].Value.ToString()),
-                        StudentGroupCourseClasses = new List<StudentGroupCourseClass>()
                     });
                 }
             }
@@ -141,9 +140,7 @@ namespace ProjectCore
                     Professors.Add(new Teacher()
                     {
                         Id = Int32.Parse(worksheet.Cells[row, 1].Value.ToString()),
-                        FirstName = worksheet.Cells[row, 2].Value.ToString(),
                         CourseClasses = new List<CourseClass>(),
-                        Availables = new List<Available>()
                     });
                 }
 

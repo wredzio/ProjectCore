@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Text;
 using System.Linq;
 using GeneticAlgorithmSchedule.Infrastructure.Selection;
-using GeneticAlgorithmSchedule.Utils;
 
 namespace GeneticAlgorithmSchedule.Infrastructure.Concrete
 {
@@ -88,8 +87,7 @@ namespace GeneticAlgorithmSchedule.Infrastructure.Concrete
 
                 int size = School.CourseClasses.Count();
 
-                List<bool> pointsToCrossover = 
-                     Extensions.RepeatedDefault<bool>(size);
+                List<bool> pointsToCrossover = Extensions.RepeatedDefault<bool>(size);
 
                 for (int i = _algorithmConfig.NumberOfCrossoverPoints; i > 0; i--)
                 {

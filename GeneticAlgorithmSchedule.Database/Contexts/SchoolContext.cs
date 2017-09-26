@@ -1,5 +1,9 @@
-﻿using GeneticAlgorithmSchedule.Models;
+﻿using GeneticAlgorithmSchedule.Database.Models;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace GeneticAlgorithmSchedule.Database.Contexts
 {
@@ -19,6 +23,26 @@ namespace GeneticAlgorithmSchedule.Database.Contexts
         public DbSet<StudentGroupCourseClass> StudentGroupCourseClasses { get; set; }
         public DbSet<Available> Availables { get; set; }
         public DbSet<Room> Rooms{ get; set; }
+
+
+        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default(CancellationToken))
+        {
+            ChangeTracker.DetectChanges();
+            var now = DateTime.UtcNow;
+
+            foreach (var item in ChangeTracker.Entries<BaseEntity>().Where(e => e.State == EntityState.Added))
+            {
+                item.Property("AddedDate").CurrentValue = now;
+                item.Property("ModifiedDate").CurrentValue = now;
+            }
+
+            foreach (var item in ChangeTracker.Entries<BaseEntity>().Where(e => e.State == EntityState.Modified))
+            {
+                item.Property("ModifiedDate").CurrentValue = now;
+            }
+
+            return base.SaveChangesAsync(cancellationToken);
+        }
     }
 }
 

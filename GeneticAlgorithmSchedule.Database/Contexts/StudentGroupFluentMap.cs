@@ -1,4 +1,4 @@
-﻿using GeneticAlgorithmSchedule.Models;
+﻿using GeneticAlgorithmSchedule.Database.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -9,9 +9,7 @@ namespace GeneticAlgorithmSchedule.Database.Contexts
         public void Configure(EntityTypeBuilder<StudentsGroup> builder)
         {
             builder.Property(o => o.Name).IsRequired();
-            builder.Property(o => o.NumberOfStudents).IsRequired();           
-            builder.Property(o => o.ModifiedDate).ValueGeneratedOnAddOrUpdate();
-            builder.Property(o => o.AddedDate).ValueGeneratedOnAdd();
+            builder.Property(o => o.NumberOfStudents).IsRequired();
         }
     }
 }

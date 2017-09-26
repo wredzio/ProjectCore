@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using AutoMapper;
+using GeneticAlgorithmSchedule.Database.Models;
 
 namespace GeneticAlgorithmSchedule.Web.Areas.School.Rooms
 {
@@ -12,43 +14,28 @@ namespace GeneticAlgorithmSchedule.Web.Areas.School.Rooms
     public class RoomsController : Controller
     {
         private readonly IRoomsRepository _roomRepository;
+        private readonly IMapper _mapper;
 
-        public RoomsController(IRoomsRepository roomRepository)
+        public RoomsController(IRoomsRepository roomRepository, IMapper mapper)
         {
             _roomRepository = roomRepository;
+            _mapper = mapper;
         }
 
-        // GET: api/Room
-        [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
-
-        // GET: api/Room/5
         [HttpGet("{id}", Name = "Get")]
         public async Task<IActionResult> Get(int id)
         {
             var room = await _roomRepository.GetById(id);
-            return Ok(room);
+            return Ok(_mapper.Map<RoomViewModel>(room));
         }
-        
-        // POST: api/Room
+
         [HttpPost]
-        public void Post([FromBody]string value)
+        public async Task<IActionResult> Post([FromBody] RoomViewModel roomViewModel)
         {
-        }
-        
-        // PUT: api/Room/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-        
-        // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+            var a = _mapper.Map<Room>(roomViewModel);
+
+            var room = await _roomRepository.Post(a);
+            return Ok(_mapper.Map<RoomViewModel>(room));
         }
     }
 }

@@ -5,11 +5,12 @@ using System.Text;
 
 namespace GeneticAlgorithmSchedule.Models
 {
-    public class StudentsGroup : BaseEntity
+    public class StudentsGroup
     {
+        public int Id { get; set; }
         public string Name { get; set; }
         public int NumberOfStudents { get; set; }
-        public List<StudentGroupCourseClass> StudentGroupCourseClasses { get; set; }
+        public List<CourseClass> CourseClasses { get; set; }
 
         public override bool Equals(Object obj)
         {

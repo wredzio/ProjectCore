@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using GeneticAlgorithmSchedule.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using GeneticAlgorithmSchedule.Database.Models;
 
 namespace GeneticAlgorithmSchedule.Database.Contexts
 {
@@ -30,8 +30,6 @@ namespace GeneticAlgorithmSchedule.Database.Contexts
 
             builder.Property(o => o.CourseClassId).IsRequired();
             builder.Property(o => o.StudentGroupId).IsRequired();
-            builder.Property(o => o.ModifiedDate).ValueGeneratedOnAddOrUpdate();
-            builder.Property(o => o.AddedDate).ValueGeneratedOnAdd();
         }
     }
 }

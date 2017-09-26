@@ -1,4 +1,4 @@
-﻿using GeneticAlgorithmSchedule.Models;
+﻿using GeneticAlgorithmSchedule.Database.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -9,7 +9,6 @@ namespace GeneticAlgorithmSchedule.Database.Contexts
         public void Configure(EntityTypeBuilder<AlgorithmConfig> builder)
         {
             builder.Property(o => o.CrosoverProbability).IsRequired();
-            builder.Property(o => o.IsSoftOn).IsRequired();
             builder.Property(o => o.MutationProbability).IsRequired();
             builder.Property(o => o.NumberOfChromosomes).IsRequired();
             builder.Property(o => o.MutationSize).IsRequired();
@@ -18,8 +17,6 @@ namespace GeneticAlgorithmSchedule.Database.Contexts
             builder.Property(o => o.SoftConditionSufficient).IsRequired();
             builder.Property(o => o.SelectionType).IsRequired();
             builder.Property(o => o.ReplaceByGeneration).IsRequired();
-            builder.Property(o => o.ModifiedDate).ValueGeneratedOnAddOrUpdate();
-            builder.Property(o => o.AddedDate).ValueGeneratedOnAdd();
         }
     }
 

@@ -1,10 +1,10 @@
-﻿using GeneticAlgorithmSchedule.Models;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using GeneticAlgorithmSchedule.Database.Models;
 
 namespace GeneticAlgorithmSchedule.Database.Contexts
 {

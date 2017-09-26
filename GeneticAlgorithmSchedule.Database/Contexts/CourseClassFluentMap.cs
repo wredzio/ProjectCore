@@ -1,4 +1,4 @@
-﻿using GeneticAlgorithmSchedule.Models;
+﻿using GeneticAlgorithmSchedule.Database.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -14,8 +14,6 @@ namespace GeneticAlgorithmSchedule.Database.Contexts
             builder.Property(o => o.Course).IsRequired();
             builder.Property(o => o.Teacher).IsRequired();
             builder.Property(o => o.RequiresLab).IsRequired();
-            builder.Property(o => o.ModifiedDate).ValueGeneratedOnAddOrUpdate();
-            builder.Property(o => o.AddedDate).ValueGeneratedOnAdd();
         }
     }
 }

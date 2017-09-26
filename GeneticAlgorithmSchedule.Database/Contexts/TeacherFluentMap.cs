@@ -1,4 +1,4 @@
-﻿using GeneticAlgorithmSchedule.Models;
+﻿using GeneticAlgorithmSchedule.Database.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -10,8 +10,6 @@ namespace GeneticAlgorithmSchedule.Database.Contexts
         {
             builder.Property(o => o.FirstName).IsRequired();
             builder.Property(o => o.LastName).IsRequired();
-            builder.Property(o => o.ModifiedDate).ValueGeneratedOnAddOrUpdate();
-            builder.Property(o => o.AddedDate).ValueGeneratedOnAdd();
         }
     }
 
@@ -20,8 +18,6 @@ namespace GeneticAlgorithmSchedule.Database.Contexts
         public void Configure(EntityTypeBuilder<Available> builder)
         {
             builder.Property(o => o.Slot).IsRequired();
-            builder.Property(o => o.ModifiedDate).ValueGeneratedOnAddOrUpdate();
-            builder.Property(o => o.AddedDate).ValueGeneratedOnAdd();
         }
     }
 }

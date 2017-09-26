@@ -6,20 +6,38 @@ using System.Linq;
 
 namespace GeneticAlgorithmSchedule.Models
 {
-    public class CourseClass : BaseEntity
+    public class CourseClass
     {
         public Teacher Teacher { get; set; }
         public Course Course { get; set; }
-        public List<StudentGroupCourseClass> StudentGroupCourseClasses { get; set; }
+        public List<StudentsGroup> StudentsGroups { get; set; }
         public int NumberOfSeats { get; set; }
         public bool RequiresLab { get; set; }
         public int Duration { get; set; }
 
+        public CourseClass(Teacher teacher, Course course, List<StudentsGroup> studentsGroups,
+                            bool requiresLab, int duration)
+        {
+            Teacher = teacher;
+            Course = course;
+            RequiresLab = requiresLab;
+            Duration = duration;
+            StudentsGroups = studentsGroups;
+
+            Teacher.CourseClasses.Add(this);
+
+            foreach (StudentsGroup studentGroup in StudentsGroups)
+            {
+                studentGroup.CourseClasses.Add(this);
+                NumberOfSeats += studentGroup.NumberOfStudents;
+            }
+        }
+
         public bool GroupsOverlap(CourseClass courseClass)
         {
-            foreach (var group in StudentGroupCourseClasses)
+            foreach (var group in courseClass.StudentsGroups)
             {
-                if (StudentGroupCourseClasses.Any(o => o.CourseClass.Equals(group.CourseClass)))
+                if (StudentsGroups.Any(o => o.Equals(group)))
                     return true;
             }
             return false;
