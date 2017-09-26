@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace GeneticAlgorithmSchedule.Models
+namespace GeneticAlgorithmSchedule.Database.Models
 {
     public abstract class BaseEntity
     {

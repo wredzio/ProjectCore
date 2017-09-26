@@ -6,7 +6,7 @@ using GeneticAlgorithmSchedule.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace GeneticAlgorithmSchedule.Web.Areas.School.Contexts
+namespace GeneticAlgorithmSchedule.Database.Contexts
 {
     public class StudentGroupCourseClassFluentMap : IEntityTypeConfiguration<StudentGroupCourseClass>
     {
@@ -27,6 +27,11 @@ namespace GeneticAlgorithmSchedule.Web.Areas.School.Contexts
                 .HasOne(pt => pt.StudentsGroup)
                 .WithMany(t => t.StudentGroupCourseClasses)
                 .HasForeignKey(pt => pt.StudentGroupId);
+
+            builder.Property(o => o.CourseClassId).IsRequired();
+            builder.Property(o => o.StudentGroupId).IsRequired();
+            builder.Property(o => o.ModifiedDate).ValueGeneratedOnAddOrUpdate();
+            builder.Property(o => o.AddedDate).ValueGeneratedOnAdd();
         }
     }
 }

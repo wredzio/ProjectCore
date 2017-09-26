@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace GeneticAlgorithmSchedule.Web.Areas.School.Contexts
+namespace GeneticAlgorithmSchedule.Database.Contexts
 {
     public class CourseClassFluentMap : IEntityTypeConfiguration<CourseClass>
     {
@@ -14,6 +14,8 @@ namespace GeneticAlgorithmSchedule.Web.Areas.School.Contexts
             builder.Property(o => o.Course).IsRequired();
             builder.Property(o => o.Teacher).IsRequired();
             builder.Property(o => o.RequiresLab).IsRequired();
+            builder.Property(o => o.ModifiedDate).ValueGeneratedOnAddOrUpdate();
+            builder.Property(o => o.AddedDate).ValueGeneratedOnAdd();
         }
     }
 }

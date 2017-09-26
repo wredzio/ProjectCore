@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 using GeneticAlgorithmSchedule.Models;
 using GeneticAlgorithmSchedule.Web.Repositories;
 
-namespace GeneticAlgorithmSchedule.Web.Areas.School.Repositories.Abstracts
+namespace GeneticAlgorithmSchedule.Web.Areas.School.Rooms
 {
-    public interface IRoomRepository : IRepository<Room>, IRepositoryAsync<Room>
+    public interface IRoomsRepository : IGenericRepository<Room>
     {
     }
 }

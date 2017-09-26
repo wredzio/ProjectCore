@@ -1,10 +1,12 @@
-using GeneticAlgorithmSchedule.Web.Areas.School.Contexts;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
+using GeneticAlgorithmSchedule.Web.ConfigureServices;
+using AutoMapper;
+using GeneticAlgorithmSchedule.Database.Contexts;
 
 namespace GeneticAlgorithmSchedule.Web
 {
@@ -19,11 +21,13 @@ namespace GeneticAlgorithmSchedule.Web
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
-        {
-            services.AddMvc();
+        {          
+            services.AddDbContext<SchoolContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly("GeneticAlgorithmSchedule.Web")));
 
-            var connection = @"Server=(localdb)\mssqllocaldb;Database=GeneticAlgorithmSchedule;Trusted_Connection=True;";
-            services.AddDbContext<SchoolContext>(options => options.UseSqlServer(connection));
+            services.AddMvc();
+            services.AddAutoMapper();
+
+            services.AddSchoolService();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,7 +1,7 @@
 ﻿using GeneticAlgorithmSchedule.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace GeneticAlgorithmSchedule.Web.Areas.School.Contexts
+namespace GeneticAlgorithmSchedule.Database.Contexts
 {
     public class SchoolContext : DbContext
     {
