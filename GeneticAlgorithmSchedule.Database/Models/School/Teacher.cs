@@ -1,9 +1,10 @@
 ﻿
+using GeneticAlgorithmSchedule.Database.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace GeneticAlgorithmSchedule.Database.Models
+namespace GeneticAlgorithmSchedule.Database.School.Models
 {
     public class Teacher : BaseEntity
     {

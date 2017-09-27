@@ -7,6 +7,8 @@ using Microsoft.EntityFrameworkCore;
 using GeneticAlgorithmSchedule.Web.ConfigureServices;
 using AutoMapper;
 using GeneticAlgorithmSchedule.Database.Contexts;
+using Microsoft.AspNetCore.Identity;
+using System;
 
 namespace GeneticAlgorithmSchedule.Web
 {
@@ -22,7 +24,33 @@ namespace GeneticAlgorithmSchedule.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {          
-            services.AddDbContext<SchoolContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly("GeneticAlgorithmSchedule.Database")));
+            services.AddDbContext<SchoolContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"),
+                b => b.MigrationsAssembly("GeneticAlgorithmSchedule.Database")));
+
+            services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddEntityFrameworkStores<SchoolContext>()
+                .AddDefaultTokenProviders();
+
+            services.Configure<IdentityOptions>(options =>
+            {
+                options.Password.RequiredLength = 5;
+
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(30);
+                options.Lockout.MaxFailedAccessAttempts = 10;
+                options.Lockout.AllowedForNewUsers = true;
+
+            });
+
+            services.ConfigureApplicationCookie(options =>
+            {
+                // Cookie settings
+                options.Cookie.HttpOnly = true;
+                options.Cookie.Expiration = TimeSpan.FromDays(150);
+                options.LoginPath = "/Account/Login"; // If the LoginPath is not set here, ASP.NET Core will default to /Account/Login
+                options.LogoutPath = "/Account/Logout"; // If the LogoutPath is not set here, ASP.NET Core will default to /Account/Logout
+                options.SlidingExpiration = true;
+            });
 
             services.AddMvc();
             services.AddAutoMapper();
@@ -47,6 +75,8 @@ namespace GeneticAlgorithmSchedule.Web
             }
 
             app.UseStaticFiles();
+
+            app.UseAuthentication();
 
             app.UseMvc(routes =>
             {

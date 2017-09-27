@@ -3,8 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
+using GeneticAlgorithmSchedule.Database.Models;
 
-namespace GeneticAlgorithmSchedule.Database.Models
+namespace GeneticAlgorithmSchedule.Database.School.Models
 {
     public class CourseClass : BaseEntity
     {
