@@ -1,8 +1,8 @@
-﻿using GeneticAlgorithmSchedule.Database.Models;
+﻿using GeneticAlgorithmSchedule.Database.Models.Schools;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace GeneticAlgorithmSchedule.Database.Contexts
+namespace GeneticAlgorithmSchedule.Database.Contexts.Schools
 {
     public class CourseClassFluentMap : IEntityTypeConfiguration<CourseClass>
     {

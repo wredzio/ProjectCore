@@ -4,9 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using GeneticAlgorithmSchedule.Database.Models;
+using GeneticAlgorithmSchedule.Database.Models.Schools;
 
-namespace GeneticAlgorithmSchedule.Database.Contexts
+namespace GeneticAlgorithmSchedule.Database.Contexts.Schools
 {
     public class StudentGroupCourseClassFluentMap : IEntityTypeConfiguration<StudentGroupCourseClass>
     {

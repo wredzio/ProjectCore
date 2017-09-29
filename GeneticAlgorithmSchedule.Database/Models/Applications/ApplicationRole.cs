@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace GeneticAlgorithmSchedule.Web.Models
+namespace GeneticAlgorithmSchedule.Database.Models.Application
 {
-    public class ApplicationUser : IdentityUser<int>
+    public class ApplicationRole : IdentityRole<int>
     {
     }
 }

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using GeneticAlgorithmSchedule.Database.Models;
 using GeneticAlgorithmSchedule.Database.Contexts;
+using GeneticAlgorithmSchedule.Database.Contexts.Schools;
 
 namespace GeneticAlgorithmSchedule.Web.Repositories
 {

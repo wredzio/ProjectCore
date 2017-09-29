@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using GeneticAlgorithmSchedule.Database.Models;
 
-namespace GeneticAlgorithmSchedule.Database.Contexts
+namespace GeneticAlgorithmSchedule.Database.Contexts.Schools
 {
     public class BaseEntityFluentMap : IEntityTypeConfiguration<BaseEntity>
     {

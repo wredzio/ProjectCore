@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using AutoMapper;
-using GeneticAlgorithmSchedule.Database.Models;
+using GeneticAlgorithmSchedule.Database.Models.Schools;
 
 namespace GeneticAlgorithmSchedule.Web.Areas.School.Rooms
 {

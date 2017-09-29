@@ -5,7 +5,7 @@ using System.Text;
 using System.Linq;
 using GeneticAlgorithmSchedule.Database.Models;
 
-namespace GeneticAlgorithmSchedule.Database.School.Models
+namespace GeneticAlgorithmSchedule.Database.Models.Schools
 {
     public class CourseClass : BaseEntity
     {

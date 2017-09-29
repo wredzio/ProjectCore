@@ -6,9 +6,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using GeneticAlgorithmSchedule.Web.ConfigureServices;
 using AutoMapper;
-using GeneticAlgorithmSchedule.Database.Contexts;
 using Microsoft.AspNetCore.Identity;
 using System;
+using GeneticAlgorithmSchedule.Database.Contexts.Schools;
+using GeneticAlgorithmSchedule.Database.Models.Application;
+using GeneticAlgorithmSchedule.Database.Contexts.Applications;
 
 namespace GeneticAlgorithmSchedule.Web
 {
@@ -27,9 +29,9 @@ namespace GeneticAlgorithmSchedule.Web
             services.AddDbContext<SchoolContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"),
                 b => b.MigrationsAssembly("GeneticAlgorithmSchedule.Database")));
-
-            services.AddIdentity<ApplicationUser, IdentityRole>()
-                .AddEntityFrameworkStores<SchoolContext>()
+            
+            services.AddIdentity<ApplicationUser, IdentityRole<int>>()
+                .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
             services.Configure<IdentityOptions>(options =>
