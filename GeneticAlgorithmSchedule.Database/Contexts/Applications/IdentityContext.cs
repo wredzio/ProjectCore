@@ -7,9 +7,9 @@ using System.Text;
 
 namespace GeneticAlgorithmSchedule.Database.Contexts.Applications
 {
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, int>
+    public class IdentityContext : IdentityDbContext<ApplicationUser, ApplicationRole, int>
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+        public IdentityContext(DbContextOptions<IdentityContext> options)
             : base(options)
         {
         }

@@ -8,5 +8,6 @@ namespace GeneticAlgorithmSchedule.Database.Models.Application
 {
     public class ApplicationRole : IdentityRole<int>
     {
+        
     }
 }

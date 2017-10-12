@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace GeneticAlgorithmSchedule.Web.ContextFactories
 {
-    public class ApplicationDbContextFactory : DesignTimeDbContextFactory<ApplicationDbContext>
+    public class IdentityDbContextFactory : DesignTimeDbContextFactory<IdentityContext>
     {
+        public IdentityDbContextFactory()
+        {
+            _databaseName = "IdentityConnection";
+        }
     }
 }

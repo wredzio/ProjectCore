@@ -10,7 +10,7 @@ using System;
 
 namespace GeneticAlgorithmSchedule.Database.Migrations.ApplicationDb
 {
-    [DbContext(typeof(ApplicationDbContext))]
+    [DbContext(typeof(IdentityContext))]
     [Migration("20170929084425_Init")]
     partial class Init
     {

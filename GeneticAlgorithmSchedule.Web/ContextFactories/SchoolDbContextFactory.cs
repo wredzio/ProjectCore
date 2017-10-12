@@ -8,5 +8,9 @@ namespace GeneticAlgorithmSchedule.Web.ContextFactories
 {
     public class SchoolDbContextFactory : DesignTimeDbContextFactory<SchoolContext>
     {
+        public SchoolDbContextFactory()
+        {
+            _databaseName = "SchoolConnection";
+        }
     }
 }
