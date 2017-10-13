@@ -1,24 +1,22 @@
 ﻿using AutoMapper;
 using GeneticAlgorithmSchedule.Database.Models.Application;
-using GeneticAlgorithmSchedule.Database.Models.Schools;
 using GeneticAlgorithmSchedule.Web.Areas.Appliaction.Users;
-using GeneticAlgorithmSchedule.Web.Areas.School.Rooms;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace GeneticAlgorithmSchedule.Web.Areas.School
+namespace GeneticAlgorithmSchedule.Web.Areas.Appliaction
 {
-    public class SchoolMappingProfile : Profile
+    public class ApplicationMappingProfile : Profile
     {
-        public SchoolMappingProfile()
+        public ApplicationMappingProfile()
         {
             // Add as many of these lines as you need to map your objects
-            CreateMap<Room, RoomViewModel>();
-            CreateMap<RoomViewModel, Room>();
             CreateMap<LoginViewModel, ApplicationUser>();
             CreateMap<ApplicationUser, LoginViewModel>();
+            CreateMap<RegisterViewModel, ApplicationUser>();
+            CreateMap<ApplicationUser, RegisterViewModel>();
         }
     }
 }

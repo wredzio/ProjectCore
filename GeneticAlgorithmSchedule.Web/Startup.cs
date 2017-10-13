@@ -11,6 +11,7 @@ using System;
 using GeneticAlgorithmSchedule.Database.Contexts.Schools;
 using GeneticAlgorithmSchedule.Database.Models.Application;
 using GeneticAlgorithmSchedule.Database.Contexts.Applications;
+using GeneticAlgorithmSchedule.Web.Middlewares;
 
 namespace GeneticAlgorithmSchedule.Web
 {
@@ -60,6 +61,7 @@ namespace GeneticAlgorithmSchedule.Web
 
             services.AddMvc();
             services.AddAutoMapper();
+            services.AddLogging();
 
             services.AddSchoolService();
         }
@@ -80,19 +82,18 @@ namespace GeneticAlgorithmSchedule.Web
                 app.UseExceptionHandler("/Home/Error");
             }
 
+            app.UseStatusCodePagesWithReExecute("/error/{0}");
             app.UseStaticFiles();
-
             app.UseAuthentication();
+
+            app.UseMiddleware(typeof(ErrorHandlingMiddleware));
+            app.UseMiddleware(typeof(LoggerMiddleware));
 
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
-
-                routes.MapSpaFallbackRoute(
-                    name: "spa-fallback",
-                    defaults: new { controller = "Home", action = "Index" });
             });
         }
     }

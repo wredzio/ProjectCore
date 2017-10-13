@@ -10,7 +10,7 @@ using GeneticAlgorithmSchedule.Database.Models.Schools;
 namespace GeneticAlgorithmSchedule.Web.Areas.School.Rooms
 {
     [Produces("application/json")]
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     public class RoomsController : Controller
     {
         private readonly IRoomsRepository _roomRepository;
