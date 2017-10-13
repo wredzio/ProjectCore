@@ -13,29 +13,25 @@ namespace GeneticAlgorithmSchedule.Web.Areas.School.Rooms
     [Route("api/[controller]/[action]")]
     public class RoomsController : Controller
     {
-        private readonly IRoomsRepository _roomRepository;
-        private readonly IMapper _mapper;
+        private readonly IRoomService _roomServicey;
 
-        public RoomsController(IRoomsRepository roomRepository, IMapper mapper)
+        public RoomsController(IRoomService roomService)
         {
-            _roomRepository = roomRepository;
-            _mapper = mapper;
+            _roomServicey = roomService;
         }
 
         [HttpGet("{id}", Name = "Get")]
         public async Task<IActionResult> Get(int id)
         {
-            var room = await _roomRepository.GetById(id);
-            return Ok(_mapper.Map<RoomViewModel>(room));
+            var room = await _roomServicey.GetById(id);
+            return Ok(room);
         }
 
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] RoomViewModel roomViewModel)
         {
-            var a = _mapper.Map<Room>(roomViewModel);
-
-            var room = await _roomRepository.Post(a);
-            return Ok(_mapper.Map<RoomViewModel>(room));
+            var room = await _roomServicey.Post(roomViewModel);
+            return Ok(room);
         }
     }
 }

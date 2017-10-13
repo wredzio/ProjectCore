@@ -23,14 +23,14 @@ namespace GeneticAlgorithmSchedule.Web.Middlewares
         {
             try
             {
-
-                _logger.LogInformation("Koty");
+                _logger.LogInformation($"Time: {DateTime.Now} - User: {context.User.Identity.Name}, Method: {context.Request.Method}, Path: {context.Request.Path}");
                 await _next(context);
             }
-
             catch (Exception e)
             {
-                _logger.LogError(e.Message);
+                _logger.LogError($"Time: {DateTime.Now} - User: {context.User.Identity.Name}, Method: {context.Request.Method}, " +
+                    $"Path: {context.Request.Path}, Message: {e.Message}, InnerException: {e.InnerException}, StackTrace: {e.StackTrace}");
+
                 throw;
             }
         }

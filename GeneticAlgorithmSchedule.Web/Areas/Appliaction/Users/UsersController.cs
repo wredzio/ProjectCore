@@ -15,14 +15,14 @@ using AutoMapper;
 namespace GeneticAlgorithmSchedule.Web.Areas.Appliaction.Users
 {
     [Route("api/[controller]/[action]")]
+    [Authorize]
     public class UsersController : Controller
     {
         private UserManager<ApplicationUser> _userManager;
         private SignInManager<ApplicationUser> _signInManager;
-        private ILogger<UsersController> _logger;
         private IMapper _mapper;
 
-        public UsersController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, ILogger<UsersController> logger, IMapper mapper)
+        public UsersController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IMapper mapper)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -30,13 +30,8 @@ namespace GeneticAlgorithmSchedule.Web.Areas.Appliaction.Users
             _mapper = mapper;
         }
 
-        [HttpGet("{id}", Name = "GetUser")]
-        public async Task<IActionResult> Get(int id)
-        {
-            return Ok(new { Is = id });
-        }
-
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> Register([FromBody] RegisterViewModel model)
         {
             if (ModelState.IsValid)
@@ -46,17 +41,16 @@ namespace GeneticAlgorithmSchedule.Web.Areas.Appliaction.Users
                 if (result.Succeeded)
                 {
                     await _signInManager.SignInAsync(user, isPersistent: false);
-                    _logger.LogInformation(3, "User created a new account with password.");
                     return RedirectToAction(nameof(HomeController.Index), "Home");
                 }
                 NotFound(result);
             }
 
-            // If we got this far, something failed, redisplay form
             return View(model);
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> Login([FromBody] LoginViewModel model)
         {
             if (ModelState.IsValid)
@@ -66,12 +60,10 @@ namespace GeneticAlgorithmSchedule.Web.Areas.Appliaction.Users
 
                 if (result.Succeeded)
                 {
-                    _logger.LogInformation(1, "User logged in.");
                     return RedirectToAction(nameof(HomeController.Index), "Home");
                 }
                 if (result.IsLockedOut)
                 {
-                    _logger.LogWarning(2, "User account locked out.");
                     return View("Lockout");
                 }
                 else
