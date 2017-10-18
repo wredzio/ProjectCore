@@ -9,7 +9,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using System;
 using GeneticAlgorithmSchedule.Database.Contexts.Schools;
-using GeneticAlgorithmSchedule.Database.Models.Application;
+using GeneticAlgorithmSchedule.Database.Models.Applications;
 using GeneticAlgorithmSchedule.Database.Contexts.Applications;
 using GeneticAlgorithmSchedule.Web.Middlewares;
 

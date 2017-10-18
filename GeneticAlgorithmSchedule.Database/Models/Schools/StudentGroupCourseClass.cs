@@ -12,6 +12,5 @@ namespace GeneticAlgorithmSchedule.Database.Models.Schools
 
         public int CourseClassId { get; set; }
         public CourseClass CourseClass { get; set; }
-
     }
 }

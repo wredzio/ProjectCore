@@ -1,4 +1,4 @@
-﻿using GeneticAlgorithmSchedule.Database.Models.Application;
+﻿using GeneticAlgorithmSchedule.Database.Models.Applications;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -13,6 +13,8 @@ namespace GeneticAlgorithmSchedule.Database.Contexts.Applications
             : base(options)
         {
         }
+
+        public DbSet<ApplicationUserSchool> StudentGroupCourseClasses { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

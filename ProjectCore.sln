@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.16
+VisualStudioVersion = 15.0.27004.2002
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectCore", "ProjectCore\ProjectCore.csproj", "{1164B195-E6FC-476D-9E98-80CEE96C8655}"
 EndProject
@@ -12,7 +12,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GeneticAlgorithmSchedule.We
 		{3DB75DBC-0F7E-401F-B470-1E1957F18BD8} = {3DB75DBC-0F7E-401F-B470-1E1957F18BD8}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeneticAlgorithmSchedule.Database", "GeneticAlgorithmSchedule.Database\GeneticAlgorithmSchedule.Database.csproj", "{3DB75DBC-0F7E-401F-B470-1E1957F18BD8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GeneticAlgorithmSchedule.Database", "GeneticAlgorithmSchedule.Database\GeneticAlgorithmSchedule.Database.csproj", "{3DB75DBC-0F7E-401F-B470-1E1957F18BD8}"
 	ProjectSection(ProjectDependencies) = postProject
 		{D1D31BB1-2594-4E18-8027-3D3F6F19617D} = {D1D31BB1-2594-4E18-8027-3D3F6F19617D}
 	EndProjectSection

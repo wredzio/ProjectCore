@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using GeneticAlgorithmSchedule.Database.Models.Application;
+using GeneticAlgorithmSchedule.Database.Models.Applications;
 using GeneticAlgorithmSchedule.Web.Areas.Appliaction.Users;
 using System;
 using System.Collections.Generic;

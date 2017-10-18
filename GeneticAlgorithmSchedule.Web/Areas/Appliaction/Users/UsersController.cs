@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
-using GeneticAlgorithmSchedule.Database.Models.Application;
+using GeneticAlgorithmSchedule.Database.Models.Applications;
 using Microsoft.AspNetCore.Identity;
 using GeneticAlgorithmSchedule.Web.Controllers;
 using Microsoft.Extensions.Logging;
@@ -26,7 +26,6 @@ namespace GeneticAlgorithmSchedule.Web.Areas.Appliaction.Users
         {
             _userManager = userManager;
             _signInManager = signInManager;
-            _logger = logger;
             _mapper = mapper;
         }
 

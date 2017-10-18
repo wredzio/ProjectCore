@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace GeneticAlgorithmSchedule.Database.Models.Application
+namespace GeneticAlgorithmSchedule.Database.Models.Applications
 {
     public class ApplicationRole : IdentityRole<int>
     {

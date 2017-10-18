@@ -1,5 +1,6 @@
 ﻿
 using GeneticAlgorithmSchedule.Database.Models;
+using GeneticAlgorithmSchedule.Database.Models.Applications;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -15,6 +16,7 @@ namespace GeneticAlgorithmSchedule.Database.Models.Schools
         public IEnumerable<StudentsGroup> StudentsGroup { get; set; }
         public int NumberOfWorkDays { get; set; }
         public int NumberOfHoursInDay { get; set; }
+        public IEnumerable<ApplicationUserSchool> ApplicationUserSchools { get; set; }
     }
 }
 
