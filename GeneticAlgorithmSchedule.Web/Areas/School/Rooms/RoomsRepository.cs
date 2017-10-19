@@ -4,8 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using GeneticAlgorithmSchedule.Web.Repositories;
-using GeneticAlgorithmSchedule.Database.Contexts;
-using GeneticAlgorithmSchedule.Database.Models;
+using GeneticAlgorithmSchedule.Database.Models.Schools;
+using GeneticAlgorithmSchedule.Database.Contexts.Schools;
 
 namespace GeneticAlgorithmSchedule.Web.Areas.School.Rooms
 {

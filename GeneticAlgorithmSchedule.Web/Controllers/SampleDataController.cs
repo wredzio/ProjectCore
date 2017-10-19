@@ -2,10 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace GeneticAlgorithmSchedule.Web.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize]
     public class SampleDataController : Controller
     {
         private static string[] Summaries = new[]
