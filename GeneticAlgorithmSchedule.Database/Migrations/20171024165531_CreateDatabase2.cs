@@ -2,9 +2,9 @@
 using System;
 using System.Collections.Generic;
 
-namespace GeneticAlgorithmSchedule.Database.Migrations.ApplicationDb
+namespace GeneticAlgorithmSchedule.Database.Migrations
 {
-    public partial class InitialCreate2 : Migration
+    public partial class CreateDatabase2 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

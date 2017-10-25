@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace GeneticAlgorithmSchedule.Web.Controllers
 {
-    [Authorize]
     public class HomeController : Controller
     {
         public IActionResult Index()

@@ -8,7 +8,6 @@ namespace GeneticAlgorithmSchedule.Database.Models.Applications
 {
     public class ApplicationUser : IdentityUser<int>
     {
-        public IEnumerable<int> AvailableSchoolsId { get; set; }
         public IEnumerable<ApplicationUserSchool> ApplicationUserSchools { get; set; }
     }
 }

@@ -8,7 +8,7 @@ using System.Text;
 
 namespace GeneticAlgorithmSchedule.Web.ContextFactories
 {
-    public class DesignTimeDbContextFactory<T> : IDesignTimeDbContextFactory<T> where T : DbContext
+    public abstract class DesignTimeDbContextFactory<T> : IDesignTimeDbContextFactory<T> where T : DbContext
     {
         protected string _databaseName;
 

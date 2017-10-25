@@ -10,7 +10,7 @@ namespace GeneticAlgorithmSchedule.Web.ContextFactories
     {
         public SchoolDbContextFactory()
         {
-            _databaseName = "SchoolConnection";
+            _databaseName = "ScheduleConnection";
         }
     }
 }
