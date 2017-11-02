@@ -10,77 +10,18 @@ using Microsoft.EntityFrameworkCore.Storage.Internal;
 using Microsoft.EntityFrameworkCore.ValueGeneration;
 using System;
 
-namespace GeneticAlgorithmSchedule.Database.Migrations.School
+namespace GeneticAlgorithmSchedule.Database.Migrations.SchoolMigrations
 {
     [DbContext(typeof(SchoolContext))]
-    partial class SchoolContextModelSnapshot : ModelSnapshot
+    [Migration("20171102190329_InitialSchool")]
+    partial class InitialSchool
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.0.0-rtm-26452")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("GeneticAlgorithmSchedule.Database.Models.Applications.ApplicationUser", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("AccessFailedCount");
-
-                    b.Property<string>("ConcurrencyStamp");
-
-                    b.Property<string>("Email");
-
-                    b.Property<bool>("EmailConfirmed");
-
-                    b.Property<bool>("LockoutEnabled");
-
-                    b.Property<DateTimeOffset?>("LockoutEnd");
-
-                    b.Property<string>("NormalizedEmail");
-
-                    b.Property<string>("NormalizedUserName");
-
-                    b.Property<string>("PasswordHash");
-
-                    b.Property<string>("PhoneNumber");
-
-                    b.Property<bool>("PhoneNumberConfirmed");
-
-                    b.Property<string>("SecurityStamp");
-
-                    b.Property<bool>("TwoFactorEnabled");
-
-                    b.Property<string>("UserName");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ApplicationUser");
-                });
-
-            modelBuilder.Entity("GeneticAlgorithmSchedule.Database.Models.Applications.ApplicationUserSchool", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<DateTime>("AddedDate");
-
-                    b.Property<int>("ApplicationUserId");
-
-                    b.Property<DateTime>("ModifiedDate");
-
-                    b.Property<int>("SchoolId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ApplicationUserId");
-
-                    b.HasIndex("SchoolId");
-
-                    b.ToTable("ApplicationUserSchool");
-                });
 
             modelBuilder.Entity("GeneticAlgorithmSchedule.Database.Models.Schools.AlgorithmConfig", b =>
                 {
@@ -117,6 +58,26 @@ namespace GeneticAlgorithmSchedule.Database.Migrations.School
                     b.ToTable("AlgorithmConfigs");
 
                     b.HasDiscriminator<string>("Discriminator").HasValue("AlgorithmConfig");
+                });
+
+            modelBuilder.Entity("GeneticAlgorithmSchedule.Database.Models.Schools.ApplicationUserSchool", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("AddedDate");
+
+                    b.Property<DateTime>("ModifiedDate");
+
+                    b.Property<int>("SchoolId");
+
+                    b.Property<int>("UserId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SchoolId");
+
+                    b.ToTable("ApplicationUserSchool");
                 });
 
             modelBuilder.Entity("GeneticAlgorithmSchedule.Database.Models.Schools.Available", b =>
@@ -312,13 +273,8 @@ namespace GeneticAlgorithmSchedule.Database.Migrations.School
                     b.HasDiscriminator().HasValue("AlgorithmWithWeakestConfig");
                 });
 
-            modelBuilder.Entity("GeneticAlgorithmSchedule.Database.Models.Applications.ApplicationUserSchool", b =>
+            modelBuilder.Entity("GeneticAlgorithmSchedule.Database.Models.Schools.ApplicationUserSchool", b =>
                 {
-                    b.HasOne("GeneticAlgorithmSchedule.Database.Models.Applications.ApplicationUser", "ApplicationUser")
-                        .WithMany("ApplicationUserSchools")
-                        .HasForeignKey("ApplicationUserId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
                     b.HasOne("GeneticAlgorithmSchedule.Database.Models.Schools.School", "School")
                         .WithMany("ApplicationUserSchools")
                         .HasForeignKey("SchoolId")

@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using GeneticAlgorithmSchedule.Database.Models.Schools;
 
 namespace GeneticAlgorithmSchedule.Database.Contexts.Applications
 {
@@ -13,7 +14,7 @@ namespace GeneticAlgorithmSchedule.Database.Contexts.Applications
         {
             builder
                 .HasKey(o => new {
-                    o.ApplicationUserId,
+                    o.UserId,
                     o.SchoolId
                 });
 
@@ -22,12 +23,7 @@ namespace GeneticAlgorithmSchedule.Database.Contexts.Applications
                 .WithMany(p => p.ApplicationUserSchools)
                 .HasForeignKey(pt => pt.SchoolId);
 
-            builder
-                .HasOne(pt => pt.ApplicationUser)
-                .WithMany(t => t.ApplicationUserSchools)
-                .HasForeignKey(pt => pt.ApplicationUserId);
-
-            builder.Property(o => o.ApplicationUserId).IsRequired();
+            builder.Property(o => o.UserId).IsRequired();
             builder.Property(o => o.SchoolId).IsRequired();
         }
     }

@@ -27,17 +27,17 @@ namespace GeneticAlgorithmSchedule.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //services.AddDbContext<SchoolContext>(options =>
-            //    options.UseSqlServer(Configuration.GetConnectionString("ScheduleConnection"),
-            //    b => b.MigrationsAssembly("GeneticAlgorithmSchedule.Database")));
+            services.AddDbContext<SchoolContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("ScheduleConnection"),
+                b => b.MigrationsAssembly("GeneticAlgorithmSchedule.Database")));
 
-            services.AddDbContext<SchoolContext>(options => options.UseInMemoryDatabase());
+            //services.AddDbContext<SchoolContext>(options => options.UseInMemoryDatabase());
 
-            //services.AddDbContext<IdentityContext>(options =>
-            //    options.UseSqlServer(Configuration.GetConnectionString("IdentityConnection"),
-            //    b => b.MigrationsAssembly("GeneticAlgorithmSchedule.Database")));
+            services.AddDbContext<IdentityContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("ScheduleConnection"),
+                b => b.MigrationsAssembly("GeneticAlgorithmSchedule.Database")));
 
-            services.AddDbContext<IdentityContext>(options => options.UseInMemoryDatabase());
+            //services.AddDbContext<IdentityContext>(options => options.UseInMemoryDatabase());
 
             services.AddIdentity<ApplicationUser, ApplicationRole>()
                 .AddEntityFrameworkStores<IdentityContext>()

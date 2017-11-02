@@ -14,7 +14,6 @@ namespace GeneticAlgorithmSchedule.Database.Contexts.Applications
         {
         }
 
-        public DbSet<ApplicationUserSchool> ApplicationUserSchool { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

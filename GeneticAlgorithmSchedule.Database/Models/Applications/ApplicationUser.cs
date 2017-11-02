@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using GeneticAlgorithmSchedule.Database.Models.Schools;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +9,5 @@ namespace GeneticAlgorithmSchedule.Database.Models.Applications
 {
     public class ApplicationUser : IdentityUser<int>
     {
-        public IEnumerable<ApplicationUserSchool> ApplicationUserSchools { get; set; }
     }
 }

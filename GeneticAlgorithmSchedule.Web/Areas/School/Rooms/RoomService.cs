@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace GeneticAlgorithmSchedule.Web.Areas.School.Rooms
 {
-    public class RoomsService : IRoomService
+    public class RoomService : IRoomService
     {
-        private IRoomsRepository _roomsRepository;
+        private IRoomRepository _roomsRepository;
         private readonly IMapper _mapper;
 
-        public RoomsService(IRoomsRepository roomsRepository, IMapper mapper)
+        public RoomService(IRoomRepository roomsRepository, IMapper mapper)
         {
             _roomsRepository = roomsRepository;
             _mapper = mapper;

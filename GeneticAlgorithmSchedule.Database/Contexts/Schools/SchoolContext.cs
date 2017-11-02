@@ -24,7 +24,8 @@ namespace GeneticAlgorithmSchedule.Database.Contexts.Schools
         public DbSet<CourseClass> CourseClasses { get; set; }
         public DbSet<StudentGroupCourseClass> StudentGroupCourseClasses { get; set; }
         public DbSet<Available> Availables { get; set; }
-        public DbSet<Room> Rooms{ get; set; }       
+        public DbSet<Room> Rooms{ get; set; }
+        public DbSet<ApplicationUserSchool> ApplicationUserSchool { get; set; }
     }
 }
 

@@ -11,8 +11,8 @@ namespace GeneticAlgorithmSchedule.Web.ConfigureServices
     {
         public static void AddSchoolService(this IServiceCollection serviceCollection)
         {
-            serviceCollection.AddScoped<IRoomsRepository, RoomsRepository>();
-            serviceCollection.AddScoped<IRoomService, RoomsService>();
+            serviceCollection.AddScoped<IRoomRepository, RoomRepository>();
+            serviceCollection.AddScoped<IRoomService, RoomService>();
         }
     }
 }

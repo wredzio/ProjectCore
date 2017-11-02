@@ -11,11 +11,11 @@ namespace GeneticAlgorithmSchedule.Web.Areas.School.Rooms
 {
     [Produces("application/json")]
     [Route("api/[controller]/[action]")]
-    public class RoomsController : Controller
+    public class RoomController : Controller
     {
         private readonly IRoomService _roomServicey;
 
-        public RoomsController(IRoomService roomService)
+        public RoomController(IRoomService roomService)
         {
             _roomServicey = roomService;
         }
