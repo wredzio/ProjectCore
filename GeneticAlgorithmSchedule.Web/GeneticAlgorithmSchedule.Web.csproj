@@ -39,6 +39,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\app\components\login\login.component.ts" />
+    <None Remove="ClientApp\app\components\register\register.component.ts" />
+    <None Remove="ClientApp\app\components\shared\alert\alert.component.ts" />
+    <None Remove="ClientApp\app\components\shared\alert\alert.service.ts" />
+    <None Remove="ClientApp\app\components\shared\authentication\authentication.service.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Controllers\" />
     <Folder Include="Mappers\" />
     <Folder Include="Models\" />
@@ -49,6 +57,14 @@
   <ItemGroup>
     <ProjectReference Include="..\GenericAlgorithmSchedule\GeneticAlgorithmSchedule.csproj" />
     <ProjectReference Include="..\GeneticAlgorithmSchedule.Database\GeneticAlgorithmSchedule.Database.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\app\components\login\login.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\register\register.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\shared\alert\alert.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\shared\alert\alert.service.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\shared\authentication\authentication.service.ts" />
   </ItemGroup>
 
   <Target Name="DebugRunWebpack" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('wwwroot\dist') ">

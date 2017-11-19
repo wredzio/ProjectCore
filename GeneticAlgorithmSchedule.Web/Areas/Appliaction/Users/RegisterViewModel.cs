@@ -11,7 +11,7 @@ namespace GeneticAlgorithmSchedule.Web.Areas.Appliaction.Users
         public string Password { get; internal set; }
 
         [Required]
-        [CompareAttribute(nameof(Password), ErrorMessage = "Password mismatch")]
+        [Compare(nameof(Password), ErrorMessage = "Password mismatch")]
         public string ConfirmPassword { get; internal set; }
 
         [Required]
