@@ -2,7 +2,7 @@
 
 namespace GeneticAlgorithmSchedule.Web.Areas.Appliaction.Users
 {
-    public class RegisterViewModel
+    public class RegisterDto
     {
         [Required]
         public string UserName { get; internal set; }

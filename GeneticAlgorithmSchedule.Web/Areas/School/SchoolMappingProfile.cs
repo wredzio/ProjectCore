@@ -17,8 +17,8 @@ namespace GeneticAlgorithmSchedule.Web.Areas.School
             // Add as many of these lines as you need to map your objects
             CreateMap<Room, RoomViewModel>();
             CreateMap<RoomViewModel, Room>();
-            CreateMap<LoginViewModel, ApplicationUser>();
-            CreateMap<ApplicationUser, LoginViewModel>();
+            CreateMap<LoginDto, ApplicationUser>();
+            CreateMap<ApplicationUser, LoginDto>();
         }
     }
 }

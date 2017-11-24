@@ -13,10 +13,10 @@ namespace GeneticAlgorithmSchedule.Web.Areas.Appliaction
         public ApplicationMappingProfile()
         {
             // Add as many of these lines as you need to map your objects
-            CreateMap<LoginViewModel, ApplicationUser>();
-            CreateMap<ApplicationUser, LoginViewModel>();
-            CreateMap<RegisterViewModel, ApplicationUser>();
-            CreateMap<ApplicationUser, RegisterViewModel>();
+            CreateMap<LoginDto, ApplicationUser>();
+            CreateMap<ApplicationUser, LoginDto>();
+            CreateMap<RegisterDto, ApplicationUser>();
+            CreateMap<ApplicationUser, RegisterDto>();
         }
     }
 }

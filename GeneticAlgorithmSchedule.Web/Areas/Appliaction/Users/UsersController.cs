@@ -31,11 +31,12 @@ namespace GeneticAlgorithmSchedule.Web.Areas.Appliaction.Users
 
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> Register([FromBody] RegisterViewModel model)
+        public async Task<IActionResult> Register([FromBody] RegisterDto model)
         {
             if (ModelState.IsValid)
             {
-                var user = _mapper.Map<RegisterViewModel, ApplicationUser>(model);
+                var user = _mapper.Map<RegisterDto, ApplicationUser>(model);
+
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -50,7 +51,7 @@ namespace GeneticAlgorithmSchedule.Web.Areas.Appliaction.Users
 
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> Login([FromBody] LoginViewModel model)
+        public async Task<IActionResult> Login([FromBody] LoginDto model)
         {
             if (ModelState.IsValid)
             {
