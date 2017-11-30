@@ -11,7 +11,7 @@ using System;
 namespace GeneticAlgorithmSchedule.Database.Migrations.IdentityMigrations
 {
     [DbContext(typeof(IdentityContext))]
-    [Migration("20171102190303_InitialIdentity")]
+    [Migration("20171130192253_InitialIdentity")]
     partial class InitialIdentity
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

@@ -17,4 +17,8 @@
     <ProjectReference Include="..\GenericAlgorithmSchedule\GeneticAlgorithmSchedule.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Migrations\IdentityMigrations\" />
+  </ItemGroup>
+
 </Project>

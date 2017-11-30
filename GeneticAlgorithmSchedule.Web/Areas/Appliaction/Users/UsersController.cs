@@ -21,7 +21,7 @@ namespace GeneticAlgorithmSchedule.Web.Areas.Appliaction.Users
         private UserManager<ApplicationUser> _userManager;
         private SignInManager<ApplicationUser> _signInManager;
         private IMapper _mapper;
-
+        private RoleManager<ApplicationRole> _roleManager;
         public UsersController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IMapper mapper)
         {
             _userManager = userManager;
@@ -52,7 +52,7 @@ namespace GeneticAlgorithmSchedule.Web.Areas.Appliaction.Users
         [HttpPost]
         [AllowAnonymous]
         public async Task<IActionResult> Login([FromBody] LoginDto model)
-        {
+        {          
             if (ModelState.IsValid)
             {
                 var result = await _signInManager.PasswordSignInAsync(_mapper.Map<ApplicationUser>(model),
@@ -73,7 +73,7 @@ namespace GeneticAlgorithmSchedule.Web.Areas.Appliaction.Users
                 }
             }
 
-            return View(model);
+            return BadRequest(model);
         }
     }
 }

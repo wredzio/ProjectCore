@@ -34,7 +34,7 @@ namespace GeneticAlgorithmSchedule.Web
             //services.AddDbContext<SchoolContext>(options => options.UseInMemoryDatabase());
 
             services.AddDbContext<IdentityContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("ScheduleConnection"),
+                options.UseSqlServer(Configuration.GetConnectionString("IdentityConnection"),
                 b => b.MigrationsAssembly("GeneticAlgorithmSchedule.Database")));
 
             //services.AddDbContext<IdentityContext>(options => options.UseInMemoryDatabase());
@@ -71,7 +71,7 @@ namespace GeneticAlgorithmSchedule.Web
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, RoleManager<ApplicationRole> roleManager)
         {
             if (env.IsDevelopment())
             {
@@ -89,6 +89,7 @@ namespace GeneticAlgorithmSchedule.Web
             app.UseStatusCodePagesWithReExecute("/error/{0}");
             app.UseStaticFiles();
             app.UseAuthentication();
+            roleManager.SeedRoles().Wait();
 
             app.UseMiddleware(typeof(ErrorHandlingMiddleware));
             app.UseMiddleware(typeof(LoggerMiddleware));
