@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+
+import { LoaderService } from '../shared/loader/loader.service';
 
 @Component({
     selector: 'app',
@@ -6,4 +8,11 @@ import { Component } from '@angular/core';
     styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+    loading = false;
+
+    constructor( private loadingService: LoaderService) { }
+
+    ngOnInit() {
+        this.loadingService.getLoaderStatus().subscribe((loading: boolean) => { this.loading = loading; });
+    }
 }

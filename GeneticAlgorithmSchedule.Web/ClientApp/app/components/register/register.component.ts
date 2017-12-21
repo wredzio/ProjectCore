@@ -12,7 +12,6 @@ import { AuthenticationService } from '../shared/authentication/authentication.s
 
 export class RegisterComponent {
     model: Register = new Register();
-    loading = false;
     loginUrl: string = "/login";
 
     constructor(
@@ -28,8 +27,6 @@ export class RegisterComponent {
                 },
                 error => {
                     console.log(error);
-                    this.alertService.error(error.statusText);
-                    this.loading = false;
                 });
     }
 }

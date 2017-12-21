@@ -1,7 +1,6 @@
 ﻿import { Injectable } from '@angular/core';
-import { Http, Headers, Response } from '@angular/http';
+import { HttpClient , HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/map'
  
 import { getBaseUrl } from '../../../app.module.browser';
 import { Login } from '../../login/login';
@@ -9,17 +8,10 @@ import { Register } from '../../register/register';
 
 @Injectable()
 export class AuthenticationService {
-    constructor(private http: Http) { }
- 
+    constructor(private httpClient: HttpClient) { }
+
     login(login: Login) {
-        return this.http.post(getBaseUrl() + 'api/users/Login', login)
-            .map((response: Response) => {
-                let user = response.json();
-                if (user) {
-                    console.log(user);
-                    localStorage.setItem('currentUser', JSON.stringify(user));
-                }
-            });
+        return this.httpClient.post(getBaseUrl() + 'api/users/Login', login);
     }
  
     logout() {
@@ -27,10 +19,6 @@ export class AuthenticationService {
     }
 
     register(register: Register) {
-        return this.http.post(getBaseUrl() + 'api/users/Register', register)
-            .map((response: Response) => {
-                let user = response.json();
-                console.log(user);
-            });
+        return this.httpClient.post(getBaseUrl() + 'api/users/Register', register);
     }
 }

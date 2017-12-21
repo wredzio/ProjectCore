@@ -1,15 +1,17 @@
 ﻿import { Injectable } from '@angular/core';
-import { Router, NavigationStart } from '@angular/router';
+import { Router, NavigationStart, Event } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Subject } from 'rxjs/Subject';
 
+import { Alert, AlertType } from '../alert/alert'
+
 @Injectable()
 export class AlertService {
-    private subject = new Subject<any>();
+    private subject = new Subject<Alert>();
     private keepAfterNavigationChange = false;
 
     constructor(private router: Router) {
-        router.events.subscribe(event => {
+        router.events.subscribe((event: Event) => {
             if (event instanceof NavigationStart) {
                 if (this.keepAfterNavigationChange) {
                     this.keepAfterNavigationChange = false;
@@ -20,17 +22,12 @@ export class AlertService {
         });
     }
 
-    success(message: string, keepAfterNavigationChange = false) {
+    alert(type: AlertType, message: string, keepAfterNavigationChange = false) {
         this.keepAfterNavigationChange = keepAfterNavigationChange;
-        this.subject.next({ type: 'success', text: message });
+        this.subject.next({ type, content: message, dissmissed: true });
     }
 
-    error(message: string, keepAfterNavigationChange = false) {
-        this.keepAfterNavigationChange = keepAfterNavigationChange;
-        this.subject.next({ type: 'error', text: message });
-    }
-
-    getMessage(): Observable<any> {
+    getAlert(): Observable<Alert> {
         return this.subject.asObservable();
-    }
+    }    
 }

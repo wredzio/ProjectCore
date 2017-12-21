@@ -1,3 +1,8 @@
-<div class='container-fluid'>
+<alert></alert>
+
+<loader></loader>
+
+<div [ngClass]="{'overlay': loading }" class='container-fluid'>
     <router-outlet></router-outlet>
 </div>
+
