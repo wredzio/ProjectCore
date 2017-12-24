@@ -1,22 +1,35 @@
 ﻿import { Component } from '@angular/core';
 import { Router } from '@angular/router';
- 
-import { AlertService} from '../shared/alert/alert.service';
- 
+
+import { AlertService } from '../shared/alert/alert.service';
+import { Register } from '../register/register';
+import { AuthenticationService } from '../shared/authentication/authentication.service';
+
+
 @Component({
     templateUrl: 'register.component.html'
 })
- 
+
 export class RegisterComponent {
-    model: any = {};
+    model: Register = new Register();
     loading = false;
- 
+    loginUrl: string = "/login";
+
     constructor(
         private router: Router,
-        private alertService: AlertService) { }
- 
+        private alertService: AlertService,
+        private authentitationService: AuthenticationService) { }
+
     register() {
-        this.loading = true;
-//dodaj logike rejestracji
+        this.authentitationService.register(this.model)
+            .subscribe(
+                data => {
+                    this.router.navigate([this.loginUrl]);
+                },
+                error => {
+                    console.log(error);
+                    this.alertService.error(error.statusText);
+                    this.loading = false;
+                });
     }
 }

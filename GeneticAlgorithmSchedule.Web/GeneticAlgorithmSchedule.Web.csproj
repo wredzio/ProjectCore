@@ -40,10 +40,13 @@
 
   <ItemGroup>
     <None Remove="ClientApp\app\components\login\login.component.ts" />
+    <None Remove="ClientApp\app\components\login\login.ts" />
     <None Remove="ClientApp\app\components\register\register.component.ts" />
+    <None Remove="ClientApp\app\components\register\register.ts" />
     <None Remove="ClientApp\app\components\shared\alert\alert.component.ts" />
     <None Remove="ClientApp\app\components\shared\alert\alert.service.ts" />
     <None Remove="ClientApp\app\components\shared\authentication\authentication.service.ts" />
+    <None Remove="ClientApp\app\components\shared\user\user.ts" />
   </ItemGroup>
 
   <ItemGroup>
@@ -61,10 +64,13 @@
 
   <ItemGroup>
     <TypeScriptCompile Include="ClientApp\app\components\login\login.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\login\login.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\register\register.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\register\register.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\shared\alert\alert.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\shared\alert\alert.service.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\shared\authentication\authentication.service.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\shared\user\user.ts" />
   </ItemGroup>
 
   <Target Name="DebugRunWebpack" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('wwwroot\dist') ">

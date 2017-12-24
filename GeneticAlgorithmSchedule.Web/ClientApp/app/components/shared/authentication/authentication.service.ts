@@ -4,25 +4,33 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map'
  
 import { getBaseUrl } from '../../../app.module.browser';
- 
+import { Login } from '../../login/login';
+import { Register } from '../../register/register';
+
 @Injectable()
 export class AuthenticationService {
     constructor(private http: Http) { }
  
-    login(username: string, password: string) {
-        return this.http.post(getBaseUrl() + '/users/authenticate', { username: username, password: password })
+    login(login: Login) {
+        return this.http.post(getBaseUrl() + 'api/users/Login', login)
             .map((response: Response) => {
-                // login successful if there's a jwt token in the response
                 let user = response.json();
-                if (user && user.token) {
-                    // store user details and jwt token in local storage to keep user logged in between page refreshes
+                if (user) {
+                    console.log(user);
                     localStorage.setItem('currentUser', JSON.stringify(user));
                 }
             });
     }
  
     logout() {
-        // remove user from local storage to log user out
-        localStorage.removeItem('currentUser');
+        localStorage.removeItem('currentUser'); 
+    }
+
+    register(register: Register) {
+        return this.http.post(getBaseUrl() + 'api/users/Register', register)
+            .map((response: Response) => {
+                let user = response.json();
+                console.log(user);
+            });
     }
 }
