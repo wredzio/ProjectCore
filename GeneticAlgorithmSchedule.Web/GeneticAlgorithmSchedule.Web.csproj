@@ -45,7 +45,10 @@
     <None Remove="ClientApp\app\components\register\register.ts" />
     <None Remove="ClientApp\app\components\shared\alert\alert.component.ts" />
     <None Remove="ClientApp\app\components\shared\alert\alert.service.ts" />
+    <None Remove="ClientApp\app\components\shared\alert\alert.ts" />
     <None Remove="ClientApp\app\components\shared\authentication\authentication.service.ts" />
+    <None Remove="ClientApp\app\components\shared\loader\loader.component.ts" />
+    <None Remove="ClientApp\app\components\shared\loader\loader.service.ts" />
     <None Remove="ClientApp\app\components\shared\user\user.ts" />
   </ItemGroup>
 
@@ -69,7 +72,10 @@
     <TypeScriptCompile Include="ClientApp\app\components\register\register.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\shared\alert\alert.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\shared\alert\alert.service.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\shared\alert\alert.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\shared\authentication\authentication.service.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\shared\loader\loader.service.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\shared\loader\loader.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\shared\user\user.ts" />
   </ItemGroup>
 

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using GeneticAlgorithmSchedule.Web.Exceptions;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -26,11 +27,19 @@ namespace GeneticAlgorithmSchedule.Web.Middlewares
                 _logger.LogInformation($"Time: {DateTime.Now} - User: {context.User.Identity.Name}, Method: {context.Request.Method}, Path: {context.Request.Path}");
                 await _next(context);
             }
-            catch (Exception e)
+            catch(CustomException customException)
             {
                 _logger.LogError($"Time: {DateTime.Now} - User: {context.User.Identity.Name}, Method: {context.Request.Method}, " +
-                    $"Path: {context.Request.Path}, Message: {e.Message}, InnerException: {e.InnerException}, StackTrace: {e.StackTrace}");
+                    $"Path: {context.Request.Path}, Message: {customException.Message}, InnerException: {customException.InnerException}, StackTrace: {customException.StackTrace}" +
+                    $"HttpStatusCode: {customException.HttpStatusCode}");
 
+                throw;
+            }
+            catch (Exception e)
+            {
+                _logger.LogCritical($"Time: {DateTime.Now} - User: {context.User.Identity.Name}, Method: {context.Request.Method}, " +
+                    $"Path: {context.Request.Path}, Message: {e.Message}, InnerException: {e.InnerException}, StackTrace: {e.StackTrace}");
+                
                 throw;
             }
         }

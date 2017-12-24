@@ -12,7 +12,6 @@ import { Login } from '../login/login';
 })
 export class LoginComponent implements OnInit {
     model: Login = new Login();
-    loading = false;
     returnUrl: string;
  
     constructor(
@@ -27,16 +26,14 @@ export class LoginComponent implements OnInit {
     }
  
     login() {
-        this.loading = true;
         this.authenticationService.login(this.model)
             .subscribe(
                 data => {
                     this.router.navigate([this.returnUrl]);
+                    localStorage.setItem('currentUser', JSON.stringify(data));
                 },
                 error => {
                     console.log(error);
-                    this.alertService.error(error.statusText);
-                    this.loading = false;
                 });
     }
 }

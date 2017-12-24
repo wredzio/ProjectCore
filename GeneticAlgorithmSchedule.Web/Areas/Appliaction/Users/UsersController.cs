@@ -10,6 +10,7 @@ using GeneticAlgorithmSchedule.Web.Controllers;
 using Microsoft.Extensions.Logging;
 using AutoMapper;
 using GeneticAlgorithmSchedule.Web.Utils;
+using GeneticAlgorithmSchedule.Web.Exceptions;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -57,6 +58,11 @@ namespace GeneticAlgorithmSchedule.Web.Areas.Appliaction.Users
             if (ModelState.IsValid)
             {
                 var user = await _userManager.FindByNameAsync(model.Username);
+                if(user == null)
+                {
+                    throw new UnauthorizedException("Bad Login Or Password", null, model);
+                }
+
                 var result = await _signInManager.PasswordSignInAsync(user, model.Password, model.RememberMe, lockoutOnFailure: false);
 
                 if (result.Succeeded)
@@ -69,12 +75,11 @@ namespace GeneticAlgorithmSchedule.Web.Areas.Appliaction.Users
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
-                    return Unauthorized();
+                    throw new UnauthorizedException("Bad Login Or Password", null, model);
                 }
             }
 
-            return BadRequest(model);
+            throw new BadRequestException("Bad Login Or Password", null, model);
         }
     }
 }

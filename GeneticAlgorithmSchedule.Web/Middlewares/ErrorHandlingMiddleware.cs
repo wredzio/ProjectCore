@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using GeneticAlgorithmSchedule.Web.Exceptions;
+using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -23,6 +24,10 @@ namespace GeneticAlgorithmSchedule.Web.Middlewares
             {
                 await next(context);
             }
+            catch (CustomException customException)
+            {
+                await HandleExceptionAsync(context, customException);
+            }
             catch (Exception e)
             {
                 await HandleExceptionAsync(context, e);
@@ -32,12 +37,16 @@ namespace GeneticAlgorithmSchedule.Web.Middlewares
         private static Task HandleExceptionAsync(HttpContext context, Exception exception)
         {
             var code = HttpStatusCode.InternalServerError; // 500 if unexpected
+            object model = null;
 
-            //if (exception is MyNotFoundException) code = HttpStatusCode.NotFound;
-            //else if (exception is MyUnauthorizedException) code = HttpStatusCode.Unauthorized;
-            //else if (exception is MyException) code = HttpStatusCode.BadRequest;
+            if (exception is CustomException)
+            {
+                var customException = exception as CustomException;
+                code = customException.HttpStatusCode;
+                model = customException.Model;
+            }
 
-            var result = JsonConvert.SerializeObject(new { error = exception.Message });
+            var result = JsonConvert.SerializeObject(new { errorMessage = exception.Message, model });
             context.Response.ContentType = "application/json";
             context.Response.StatusCode = (int)code;
             return context.Response.WriteAsync(result);
