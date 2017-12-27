@@ -9,6 +9,8 @@ using Microsoft.AspNetCore.Identity;
 using GeneticAlgorithmSchedule.Web.Controllers;
 using Microsoft.Extensions.Logging;
 using AutoMapper;
+using GeneticAlgorithmSchedule.Web.Utils;
+using GeneticAlgorithmSchedule.Web.Exceptions;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -21,7 +23,7 @@ namespace GeneticAlgorithmSchedule.Web.Areas.Appliaction.Users
         private UserManager<ApplicationUser> _userManager;
         private SignInManager<ApplicationUser> _signInManager;
         private IMapper _mapper;
-        private RoleManager<ApplicationRole> _roleManager;
+
         public UsersController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IMapper mapper)
         {
             _userManager = userManager;
@@ -36,17 +38,17 @@ namespace GeneticAlgorithmSchedule.Web.Areas.Appliaction.Users
             if (ModelState.IsValid)
             {
                 var user = _mapper.Map<RegisterDto, ApplicationUser>(model);
-
                 var result = await _userManager.CreateAsync(user, model.Password);
+
                 if (result.Succeeded)
                 {
-                    await _signInManager.SignInAsync(user, isPersistent: false);
-                    return RedirectToAction(nameof(HomeController.Index), "Home");
+                    await _userManager.AddToRoleAsync(user, Roles.Headmaster.ToString());
+                    return Ok(model);
                 }
                 NotFound(result);
             }
 
-            return View(model);
+            return BadRequest(model);
         }
 
         [HttpPost]
@@ -55,25 +57,29 @@ namespace GeneticAlgorithmSchedule.Web.Areas.Appliaction.Users
         {          
             if (ModelState.IsValid)
             {
-                var result = await _signInManager.PasswordSignInAsync(_mapper.Map<ApplicationUser>(model),
-                    model.Password, model.RememberMe, lockoutOnFailure: false);
+                var user = await _userManager.FindByNameAsync(model.Username);
+                if(user == null)
+                {
+                    throw new UnauthorizedException("Bad Login Or Password", null, model);
+                }
+
+                var result = await _signInManager.PasswordSignInAsync(user, model.Password, model.RememberMe, lockoutOnFailure: false);
 
                 if (result.Succeeded)
                 {
-                    return RedirectToAction(nameof(HomeController.Index), "Home");
+                    return Ok(model);
                 }
                 if (result.IsLockedOut)
                 {
-                    return View("Lockout");
+                    return BadRequest("Lockout");
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
-                    return View(model);
+                    throw new UnauthorizedException("Bad Login Or Password", null, model);
                 }
             }
 
-            return BadRequest(model);
+            throw new BadRequestException("Bad Login Or Password", null, model);
         }
     }
 }

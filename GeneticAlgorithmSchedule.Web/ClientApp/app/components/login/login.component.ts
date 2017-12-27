@@ -1,17 +1,17 @@
-﻿import { Component, OnInit } from '@angular/core';
+﻿/// <reference path="login.ts" />
+import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
  
 import { AlertService} from '../shared/alert/alert.service';
 import { AuthenticationService } from '../shared/authentication/authentication.service';
+import { Login } from '../login/login';
  
 @Component({
     templateUrl: 'login.component.html',
     styleUrls: ['./login.component.css']
 })
- 
 export class LoginComponent implements OnInit {
-    model: any = {};
-    loading = false;
+    model: Login = new Login();
     returnUrl: string;
  
     constructor(
@@ -21,23 +21,19 @@ export class LoginComponent implements OnInit {
         private alertService: AlertService) { }
  
     ngOnInit() {
-        // reset login status
         this.authenticationService.logout();
- 
-        // get return url from route parameters or default to '/'
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
     }
  
     login() {
-        this.loading = true;
-        this.authenticationService.login(this.model.username, this.model.password)
+        this.authenticationService.login(this.model)
             .subscribe(
                 data => {
                     this.router.navigate([this.returnUrl]);
+                    localStorage.setItem('currentUser', JSON.stringify(data));
                 },
                 error => {
-                    this.alertService.error(error._body);
-                    this.loading = false;
+                    console.log(error);
                 });
     }
 }

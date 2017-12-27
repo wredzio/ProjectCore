@@ -1,1 +1,6 @@
-﻿<div *ngIf="message" [ngClass]="{ 'alert': message, 'alert-success': message.type === 'success', 'alert-danger': message.type === 'error' }">{{message.text}}</div>
+﻿<div class="alerts">
+    <div *ngFor="let alert of alerts" class="{{ cssClass(alert) }} alert-dismissable fade-in">
+        {{alert.content}}
+        <a class="close" (click)="removeAlert(alert)">&times;</a>
+    </div>
+</div>

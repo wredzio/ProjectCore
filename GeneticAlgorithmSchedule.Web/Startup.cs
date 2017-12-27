@@ -46,7 +46,9 @@ namespace GeneticAlgorithmSchedule.Web
             services.Configure<IdentityOptions>(options =>
             {
                 options.Password.RequiredLength = 5;
-
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireDigit = false;
+                options.Password.RequireUppercase = false;
                 options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(30);
                 options.Lockout.MaxFailedAccessAttempts = 10;
                 options.Lockout.AllowedForNewUsers = true;
@@ -58,8 +60,8 @@ namespace GeneticAlgorithmSchedule.Web
                 // Cookie settings
                 options.Cookie.HttpOnly = true;
                 options.Cookie.Expiration = TimeSpan.FromDays(150);
-                options.LoginPath = "/Account/Login"; // If the LoginPath is not set here, ASP.NET Core will default to /Account/Login
-                options.LogoutPath = "/Account/Logout"; // If the LogoutPath is not set here, ASP.NET Core will default to /Account/Logout
+                options.LoginPath = "/Account/Login";
+                options.LogoutPath = "/Account/Login";
                 options.SlidingExpiration = true;
             });
 
