@@ -7,8 +7,7 @@ using System.Threading.Tasks;
 namespace GeneticAlgorithmSchedule.Web.Exceptions
 {
     public class UnauthorizedException : CustomException
-    {
-      
+    {     
         public UnauthorizedException(string message) : base(message)
         { }
 
