@@ -10,7 +10,7 @@ namespace GeneticAlgorithmSchedule.Web.Emails.PostBoxs
     {
         public static void AddPostBoxService(this IServiceCollection serviceCollection)
         {
-            serviceCollection.AddScoped<IPostBox, PostBox>();
+            serviceCollection.AddSingleton<IPostBox, PostBox>();
         }
     }
 }

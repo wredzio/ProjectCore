@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.15
+VisualStudioVersion = 15.0.27130.2010
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GeneticAlgorithmSchedule", "GenericAlgorithmSchedule\GeneticAlgorithmSchedule.csproj", "{D1D31BB1-2594-4E18-8027-3D3F6F19617D}"
 EndProject
@@ -14,6 +14,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GeneticAlgorithmSchedule.Da
 	ProjectSection(ProjectDependencies) = postProject
 		{D1D31BB1-2594-4E18-8027-3D3F6F19617D} = {D1D31BB1-2594-4E18-8027-3D3F6F19617D}
 	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GeneticAlgorithmSchedule.Web.Test", "GeneticAlgorithmSchedule.Web.Test\GeneticAlgorithmSchedule.Web.Test.csproj", "{7EA4415F-6960-4EB4-A08C-2C0655F6602E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{3DB75DBC-0F7E-401F-B470-1E1957F18BD8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3DB75DBC-0F7E-401F-B470-1E1957F18BD8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3DB75DBC-0F7E-401F-B470-1E1957F18BD8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7EA4415F-6960-4EB4-A08C-2C0655F6602E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7EA4415F-6960-4EB4-A08C-2C0655F6602E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7EA4415F-6960-4EB4-A08C-2C0655F6602E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7EA4415F-6960-4EB4-A08C-2C0655F6602E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

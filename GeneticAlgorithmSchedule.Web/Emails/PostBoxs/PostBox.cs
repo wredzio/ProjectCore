@@ -10,23 +10,36 @@ namespace GeneticAlgorithmSchedule.Web.Emails.PostBoxs
 {
     internal class PostBox : IPostBox
     {
-        private string username;
-        private string password;
-        private string smtpServerName;
+        private string _username;
+        private string _password;
+        private string _smtpServerName;
+
         public PostBox(IConfiguration configuration)
         {
-            //smtpServerName = configuration.GetChildren().;
+            _smtpServerName = configuration["STMP:ServerName"];
+            _username = configuration["STMP:Username"];
+            _password = configuration["STMP:Password"];
         }
 
         public void Send(MailMessage email)
         {
-            SmtpClient client = new SmtpClient(smtpServerName)
+            email.From = new MailAddress(_username);
+
+            SmtpClient client = new SmtpClient(_smtpServerName)
             {
                 UseDefaultCredentials = false,
-                Credentials = new NetworkCredential(username, password)
+                Credentials = new NetworkCredential(_username, _password),
+                Port = 587,
+                EnableSsl = true
             };
 
             client.Send(email);
+        }
+
+        public void ChangeEmailAdress(string username, string password)
+        {
+            _username = username;
+            _password = password;
         }
     }
 }

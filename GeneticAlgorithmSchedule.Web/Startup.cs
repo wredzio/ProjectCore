@@ -12,6 +12,7 @@ using GeneticAlgorithmSchedule.Database.Contexts.Schools;
 using GeneticAlgorithmSchedule.Database.Models.Applications;
 using GeneticAlgorithmSchedule.Database.Contexts.Applications;
 using GeneticAlgorithmSchedule.Web.Middlewares;
+using GeneticAlgorithmSchedule.Web.Services;
 
 namespace GeneticAlgorithmSchedule.Web
 {
@@ -70,6 +71,7 @@ namespace GeneticAlgorithmSchedule.Web
             services.AddLogging();
 
             services.AddSchoolService();
+            services.AddScoped<IViewRenderService, ViewRenderService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

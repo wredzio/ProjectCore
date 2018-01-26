@@ -1,16 +1,29 @@
 ﻿using GeneticAlgorithmSchedule.Web.Exceptions.ApplicationExceptions;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.Mail;
 using System.Threading.Tasks;
 
 namespace GeneticAlgorithmSchedule.Web.Emails.EmailBuilders
 {
-    public abstract class EmailBuilder
+    public abstract class EmailBuilder<T>
     {
+        public EmailBuilder()
+        {
+            _recipients = new List<string>();
+            _carbonCopies = new List<string>();
+        }
+
         protected List<string> _recipients;
         protected List<string> _carbonCopies;
+        protected T _templateModel { get; set; }
+
+        public virtual void SetTemplateModel(T templateModel)
+        {
+            _templateModel = templateModel;
+        }
 
         public virtual void AddRecipient(string recipient)
         {
@@ -24,7 +37,7 @@ namespace GeneticAlgorithmSchedule.Web.Emails.EmailBuilders
 
         public virtual void AddRecipient(IEnumerable<string> recipients)
         {
-            if (!recipients.Any())
+            if (!recipients.Any())//TODO check emial validity
             {
                 throw new EmailException("Recipients count is equals 0");
             }
@@ -54,12 +67,36 @@ namespace GeneticAlgorithmSchedule.Web.Emails.EmailBuilders
 
         protected virtual void Validate()
         {
-            if(!_recipients.Any())
+            if (!_recipients.Any())
             {
                 throw new EmailException("Recipients count is equals 0");
             }
+
+            if (_templateModel == null)
+            {
+                throw new EmailException("TemplateModel can not be null");
+            }
         }
 
-        public abstract MailMessage Build();
+        public virtual async Task<MailMessage> Build()
+        {
+            return await Task.Run(() =>
+            {
+                Validate();
+
+                MailMessage mailMessage = new MailMessage();
+
+                foreach (var carbonCopie in _carbonCopies)
+                {
+                    mailMessage.CC.Add(carbonCopie);
+                }
+
+                foreach (var _recipient in _recipients)
+                {
+                    mailMessage.To.Add(_recipient);
+                }
+                return mailMessage;
+            });
+        }
     }
 }

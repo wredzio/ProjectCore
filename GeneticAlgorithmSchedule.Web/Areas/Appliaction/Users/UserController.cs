@@ -11,6 +11,8 @@ using Microsoft.Extensions.Logging;
 using AutoMapper;
 using GeneticAlgorithmSchedule.Web.Utils;
 using GeneticAlgorithmSchedule.Web.Exceptions;
+using GeneticAlgorithmSchedule.Web.Emails.PostBoxs;
+using GeneticAlgorithmSchedule.Web.Emails.EmailBuilders.ConfirmAccount;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -18,17 +20,13 @@ namespace GeneticAlgorithmSchedule.Web.Areas.Appliaction.Users
 {
     [Route("api/[controller]/[action]")]
     [Authorize]
-    public class UsersController : Controller
+    public class UserController : Controller
     {
-        private UserManager<ApplicationUser> _userManager;
-        private SignInManager<ApplicationUser> _signInManager;
-        private IMapper _mapper;
+        private IUserService _userService;
 
-        public UsersController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IMapper mapper)
+        public UserController(IUserService userService)
         {
-            _userManager = userManager;
-            _signInManager = signInManager;
-            _mapper = mapper;
+            _userService = userService;
         }
 
         [HttpPost]
@@ -37,15 +35,15 @@ namespace GeneticAlgorithmSchedule.Web.Areas.Appliaction.Users
         {
             if (ModelState.IsValid)
             {
-                var user = _mapper.Map<RegisterDto, ApplicationUser>(model);
-                var result = await _userManager.CreateAsync(user, model.Password);
+
+                var result = await _userService.Register(model);
 
                 if (result.Succeeded)
                 {
-                    await _userManager.AddToRoleAsync(user, Roles.Headmaster.ToString());
                     return Ok(model);
                 }
-                NotFound(result);
+
+                return NotFound(result);
             }
 
             return BadRequest(model);
@@ -54,17 +52,10 @@ namespace GeneticAlgorithmSchedule.Web.Areas.Appliaction.Users
         [HttpPost]
         [AllowAnonymous]
         public async Task<IActionResult> Login([FromBody] LoginDto model)
-        {          
+        {
             if (ModelState.IsValid)
             {
-                var user = await _userManager.FindByNameAsync(model.Username);
-                if(user == null)
-                {
-                    throw new UnauthorizedException("Bad Login Or Password", null, model);
-                }
-
-                var result = await _signInManager.PasswordSignInAsync(user, model.Password, model.RememberMe, lockoutOnFailure: false);
-
+                var result = await _userService.Login(model);
                 if (result.Succeeded)
                 {
                     return Ok(model);
