@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GeneticAlgorithmSchedule.Web.Emails.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mail;
@@ -8,6 +9,6 @@ namespace GeneticAlgorithmSchedule.Web.Emails.PostBoxs
 {
     public interface IPostBox
     {
-        void Send(MailMessage email);
+        void Send(Email email);
     }
 }

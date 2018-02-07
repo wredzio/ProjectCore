@@ -50,6 +50,7 @@
     <None Remove="ClientApp\app\components\shared\authentication\authentication.service.ts" />
     <None Remove="ClientApp\app\components\shared\loader\loader.component.ts" />
     <None Remove="ClientApp\app\components\shared\loader\loader.service.ts" />
+    <None Remove="ClientApp\app\components\shared\returnData\returnData.ts" />
     <None Remove="ClientApp\app\components\shared\user\user.ts" />
   </ItemGroup>
 
@@ -77,6 +78,7 @@
     <TypeScriptCompile Include="ClientApp\app\components\shared\authentication\authentication.service.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\shared\loader\loader.service.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\shared\loader\loader.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\shared\returnData\returnData.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\shared\user\user.ts" />
   </ItemGroup>
 

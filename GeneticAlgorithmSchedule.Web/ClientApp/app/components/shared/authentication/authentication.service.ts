@@ -11,7 +11,7 @@ export class AuthenticationService {
     constructor(private httpClient: HttpClient) { }
 
     login(login: Login) {
-        return this.httpClient.post(getBaseUrl() + 'api/users/Login', login);
+        return this.httpClient.post(getBaseUrl() + 'api/user/Login', login);
     }
  
     logout() {
@@ -19,6 +19,6 @@ export class AuthenticationService {
     }
 
     register(register: Register) {
-        return this.httpClient.post(getBaseUrl() + 'api/users/Register', register);
+        return this.httpClient.post(getBaseUrl() + 'api/user/Register', register);
     }
 }

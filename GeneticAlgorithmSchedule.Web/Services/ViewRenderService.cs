@@ -16,27 +16,33 @@ namespace GeneticAlgorithmSchedule.Web.Services
 {
     public class ViewRenderService : IViewRenderService
     {
-        private readonly IRazorViewEngine _razorViewEngine;
+        private readonly IRazorViewEngine _viewEngine;
         private readonly ITempDataProvider _tempDataProvider;
         private readonly IServiceProvider _serviceProvider;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public ViewRenderService(IRazorViewEngine razorViewEngine,
-            ITempDataProvider tempDataProvider,
-            IServiceProvider serviceProvider)
+        public ViewRenderService(IRazorViewEngine viewEngine, IHttpContextAccessor httpContextAccessor,
+        ITempDataProvider tempDataProvider, IServiceProvider serviceProvider)
         {
-            _razorViewEngine = razorViewEngine;
+            _viewEngine = viewEngine;
+            _httpContextAccessor = httpContextAccessor;
             _tempDataProvider = tempDataProvider;
             _serviceProvider = serviceProvider;
         }
 
         public async Task<string> RenderToString<T>(string viewName, T model)
         {
-            var httpContext = new DefaultHttpContext { RequestServices = _serviceProvider };
+            var httpContext = _httpContextAccessor.HttpContext ?? new DefaultHttpContext { RequestServices = _serviceProvider };
             var actionContext = new ActionContext(httpContext, new RouteData(), new ActionDescriptor());
 
             using (var sw = new StringWriter())
             {
-                var viewResult = _razorViewEngine.FindView(actionContext, viewName, false);
+                var viewResult = _viewEngine.FindView(actionContext, viewName, false);
+
+                if (viewResult.View == null)
+                {
+                    viewResult = _viewEngine.GetView("~/", viewName, false);
+                }
 
                 if (viewResult.View == null)
                 {

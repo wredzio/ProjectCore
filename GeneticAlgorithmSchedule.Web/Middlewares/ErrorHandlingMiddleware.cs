@@ -46,7 +46,7 @@ namespace GeneticAlgorithmSchedule.Web.Middlewares
                 model = customException.Model;
             }
 
-            var result = JsonConvert.SerializeObject(new { errorMessage = exception.Message, model });
+            var result = JsonConvert.SerializeObject(new { errorMessage = code == HttpStatusCode.InternalServerError? "Internal Server Error" : exception.Message, model });
             context.Response.ContentType = "application/json";
             context.Response.StatusCode = (int)code;
             return context.Response.WriteAsync(result);

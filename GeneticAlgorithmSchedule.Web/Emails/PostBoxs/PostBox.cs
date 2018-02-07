@@ -1,4 +1,7 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using AutoMapper;
+using GeneticAlgorithmSchedule.Web.Emails.Model;
+using Hangfire;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,9 +24,10 @@ namespace GeneticAlgorithmSchedule.Web.Emails.PostBoxs
             _password = configuration["STMP:Password"];
         }
 
-        public void Send(MailMessage email)
+        [AutomaticRetry(Attempts = 6)]
+        public void Send(Email email)
         {
-            email.From = new MailAddress(_username);
+            var mailMessage = MapToMailMessage(email);
 
             SmtpClient client = new SmtpClient(_smtpServerName)
             {
@@ -33,13 +37,34 @@ namespace GeneticAlgorithmSchedule.Web.Emails.PostBoxs
                 EnableSsl = true
             };
 
-            client.Send(email);
+            using (client)
+            {
+                client.Send(mailMessage);
+            }
         }
 
         public void ChangeEmailAdress(string username, string password)
         {
             _username = username;
             _password = password;
+        }
+
+        private MailMessage MapToMailMessage(Email email)
+        {
+            MailMessage mailMessage = new MailMessage();
+
+            mailMessage.To.Add(string.Join(",", email.To));
+            mailMessage.Subject = email.Subject;
+            mailMessage.From = new MailAddress(_username);
+            mailMessage.IsBodyHtml = email.IsBodyHtml;
+            mailMessage.Body = email.Body;
+
+            if (email.CC.Count != 0)
+            {
+                mailMessage.CC.Add(string.Join(",", email.CC));
+            }
+
+            return mailMessage;
         }
     }
 }

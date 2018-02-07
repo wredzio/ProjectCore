@@ -13,6 +13,14 @@ using GeneticAlgorithmSchedule.Database.Models.Applications;
 using GeneticAlgorithmSchedule.Database.Contexts.Applications;
 using GeneticAlgorithmSchedule.Web.Middlewares;
 using GeneticAlgorithmSchedule.Web.Services;
+using Hangfire;
+using GeneticAlgorithmSchedule.Web.Emails.EmailBuilders;
+using GeneticAlgorithmSchedule.Web.Emails;
+using GeneticAlgorithmSchedule.Web.Areas.Appliaction;
+using Microsoft.Extensions.FileProviders;
+using Microsoft.AspNetCore.Mvc.Razor;
+using System.Reflection;
+using Hangfire.SqlServer;
 
 namespace GeneticAlgorithmSchedule.Web
 {
@@ -27,7 +35,7 @@ namespace GeneticAlgorithmSchedule.Web
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
-        {
+        {           
             services.AddDbContext<SchoolContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("ScheduleConnection"),
                 b => b.MigrationsAssembly("GeneticAlgorithmSchedule.Database")));
@@ -70,8 +78,27 @@ namespace GeneticAlgorithmSchedule.Web
             services.AddAutoMapper();
             services.AddLogging();
 
+            var sqlServerStorageOptions = new SqlServerStorageOptions
+            {
+                QueuePollInterval = TimeSpan.FromSeconds(5),
+            };
+
+            services.AddHangfire(config =>
+                    config.UseSqlServerStorage(Configuration.GetConnectionString("HangfireConnection"), sqlServerStorageOptions));
+
+            JobStorage.Current = new SqlServerStorage(Configuration.GetConnectionString("HangfireConnection"));
+
             services.AddSchoolService();
+            services.AddEmailsService();
+            services.AddApplicationService();
             services.AddScoped<IViewRenderService, ViewRenderService>();
+
+            var fileProvider = new EmbeddedFileProvider(Assembly.GetEntryAssembly());
+
+            services.Configure<RazorViewEngineOptions>(options =>
+            {
+                options.FileProviders.Add(fileProvider);
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -93,6 +120,8 @@ namespace GeneticAlgorithmSchedule.Web
             app.UseStatusCodePagesWithReExecute("/error/{0}");
             app.UseStaticFiles();
             app.UseAuthentication();
+            app.UseHangfireDashboard("/hangfire");
+            app.UseHangfireServer();
             roleManager.SeedRoles().Wait();
 
             app.UseMiddleware(typeof(ErrorHandlingMiddleware));

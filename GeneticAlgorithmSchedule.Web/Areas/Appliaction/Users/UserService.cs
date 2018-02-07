@@ -1,11 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mail;
 using System.Threading.Tasks;
 using AutoMapper;
 using GeneticAlgorithmSchedule.Database.Models.Applications;
+using GeneticAlgorithmSchedule.Web.Emails.EmailBuilders;
+using GeneticAlgorithmSchedule.Web.Emails.EmailBuilders.ConfirmAccount;
+using GeneticAlgorithmSchedule.Web.Emails.Model;
+using GeneticAlgorithmSchedule.Web.Emails.PostBoxs;
 using GeneticAlgorithmSchedule.Web.Exceptions;
 using GeneticAlgorithmSchedule.Web.Utils;
+using Hangfire;
+using Hangfire.Common;
 using Microsoft.AspNetCore.Identity;
 
 namespace GeneticAlgorithmSchedule.Web.Areas.Appliaction.Users
@@ -14,13 +21,16 @@ namespace GeneticAlgorithmSchedule.Web.Areas.Appliaction.Users
     {
         private UserManager<ApplicationUser> _userManager;
         private SignInManager<ApplicationUser> _signInManager;
-        private IMapper _mapper;
+        private IEmailBuilderFactory _emailBuilderFactory;
+        private IPostBox _postBox;
 
-        public UserService(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IMapper mapper)
+        public UserService(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, 
+             IEmailBuilderFactory emailBuilderFactory, IPostBox postBox)
         {
             _userManager = userManager;
             _signInManager = signInManager;
-            _mapper = mapper;
+            _emailBuilderFactory = emailBuilderFactory;
+            _postBox = postBox;
         }
 
         public async Task<SignInResult> Login(LoginDto loginDto)
@@ -35,17 +45,28 @@ namespace GeneticAlgorithmSchedule.Web.Areas.Appliaction.Users
 
         }
 
-        public async Task<IdentityResult> Register(RegisterDto registerDto)
+        public async Task<IdentityResult> Register(RegisterDto registerDto, ApplicationUser applicationUser)
         {
-            var user = _mapper.Map<RegisterDto, ApplicationUser>(registerDto);
-            var result = await _userManager.CreateAsync(user, registerDto.Password);
+            var result = await _userManager.CreateAsync(applicationUser, registerDto.Password);
 
             if (result.Succeeded)
             {
-                await _userManager.AddToRoleAsync(user, Roles.Headmaster.ToString());
+                var mailMessage = await CreateConfirmEmail(registerDto, applicationUser);
+                BackgroundJob.Enqueue<IPostBox>(o => o.Send(mailMessage));
+
+                await _userManager.AddToRoleAsync(applicationUser, Roles.Headmaster.ToString());
             }
 
             return result;
+        }
+
+        private async Task<Email> CreateConfirmEmail (RegisterDto registerDto, ApplicationUser applicationUser)
+        {
+            var emailBuilder = _emailBuilderFactory.Create<ConfirmAccountTemplateModel>(EmailBuilderType.ConfirmAccount);
+            emailBuilder.AddRecipient(registerDto.Email);
+            emailBuilder.SetTemplateModel(new ConfirmAccountTemplateModel { UserFullName = registerDto.FirstName + registerDto.SecondName });
+
+            return await emailBuilder.Build();
         }
     }
 }

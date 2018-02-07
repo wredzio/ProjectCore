@@ -1,4 +1,5 @@
-﻿using GeneticAlgorithmSchedule.Web.Exceptions.ApplicationExceptions;
+﻿using GeneticAlgorithmSchedule.Web.Emails.Model;
+using GeneticAlgorithmSchedule.Web.Exceptions.ApplicationExceptions;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -78,13 +79,18 @@ namespace GeneticAlgorithmSchedule.Web.Emails.EmailBuilders
             }
         }
 
-        public virtual async Task<MailMessage> Build()
+        public virtual async Task<Email> Build()
         {
             return await Task.Run(() =>
             {
                 Validate();
 
-                MailMessage mailMessage = new MailMessage();
+                Email mailMessage = new Email()
+                {
+                    CC = new List<string>(),
+                    To = new List<string>()
+                };
+
 
                 foreach (var carbonCopie in _carbonCopies)
                 {
@@ -95,6 +101,7 @@ namespace GeneticAlgorithmSchedule.Web.Emails.EmailBuilders
                 {
                     mailMessage.To.Add(_recipient);
                 }
+                
                 return mailMessage;
             });
         }

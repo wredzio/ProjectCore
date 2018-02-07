@@ -23,10 +23,12 @@ namespace GeneticAlgorithmSchedule.Web.Areas.Appliaction.Users
     public class UserController : Controller
     {
         private IUserService _userService;
+        private IMapper _mapper;
 
-        public UserController(IUserService userService)
+        public UserController(IUserService userService, IMapper mapper)
         {
             _userService = userService;
+            _mapper = mapper;
         }
 
         [HttpPost]
@@ -35,8 +37,9 @@ namespace GeneticAlgorithmSchedule.Web.Areas.Appliaction.Users
         {
             if (ModelState.IsValid)
             {
+                var user = _mapper.Map<RegisterDto, ApplicationUser>(model);
 
-                var result = await _userService.Register(model);
+                var result = await _userService.Register(model, user);
 
                 if (result.Succeeded)
                 {

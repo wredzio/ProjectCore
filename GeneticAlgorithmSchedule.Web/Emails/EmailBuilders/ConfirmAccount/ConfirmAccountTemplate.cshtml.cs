@@ -7,12 +7,8 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace GeneticAlgorithmSchedule.Web.Emails.EmailBuilders.ConfirmAccount
 {
-    public class ConfirmAccountTemplateModel : PageModel
+    public class ConfirmAccountTemplateModel
     {
         public string UserFullName { get; set; }
-
-        public void OnGet()
-        {
-        }
     }
 }

@@ -52,8 +52,8 @@ namespace GeneticAlgorithmSchedule.Web.Test.Emails.EmailBuilders
             var email = await _emailBuilder.Build();
 
             Assert.Equal(2, email.To.Count);
-            Assert.Equal("test1@test1.pl", email.To[0].Address);
-            Assert.Equal("test2@test2.pl", email.To[1].Address);
+            Assert.Equal("test1@test1.pl", email.To[0]);
+            Assert.Equal("test2@test2.pl", email.To[1]);
         }
 
         [Fact]

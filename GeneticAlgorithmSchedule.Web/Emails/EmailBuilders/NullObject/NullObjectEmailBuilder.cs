@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GeneticAlgorithmSchedule.Web.Emails.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mail;
@@ -14,11 +15,11 @@ namespace GeneticAlgorithmSchedule.Web.Emails.EmailBuilders.NullObject
         public override void AddCC(IEnumerable<string> carbonCopies) { }
         protected override void Validate() { }
 
-        public override async Task<MailMessage> Build()
+        public override async Task<Email> Build()
         {
             return await Task.Run(() =>
                 {
-                    MailMessage mailMessage = new MailMessage
+                    Email mailMessage = new Email
                     {
                         IsBodyHtml = true,
                         Subject = "Null Object", //TODO ZMIEN NA LANGUAGE
